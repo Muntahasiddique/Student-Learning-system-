@@ -1,0 +1,722 @@
+/* For animation */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(29, 78, 216, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(29, 78, 216, 0); }
+  }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  .animate-pulse-glow {
+    animation: pulseGlow 2s infinite;
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  .hover-scale {
+    transition: transform 0.3s ease;
+  }
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+  .transition-all-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+/* Base Styles */
+.admin-dashboard {
+    background-color: #0F172A;
+    color: #E2E8F0;
+    min-height: 100vh;
+}
+
+.admin-main {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Dashboard Header */
+.admin-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    animation: fade-in 0.5s ease-out;
+}
+
+@media (min-width: 768px) {
+    .admin-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+
+.admin-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.admin-title-gradient {
+    background: linear-gradient(to right, #1D4ED8, #4D7C0F);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.admin-subtitle {
+    color: #94A3B8;
+}
+
+.admin-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #1E293B;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.admin-status:hover {
+    transform: scale(1.05);
+}
+
+.admin-status-indicator {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    background-color: #4ADE80;
+    animation: pulse 2s infinite;
+}
+
+.admin-status-text {
+    font-size: 0.875rem;
+}
+
+/* Stats Overview */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .admin-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.admin-stat-card {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+    animation: fade-in 0.5s ease-out;
+}
+
+.admin-stat-card:hover {
+    transform: scale(1.03);
+}
+
+.admin-stat-card--users {
+    background: linear-gradient(to bottom right, #1D4ED8/0.2, #1E293B);
+    animation-delay: 0.1s;
+}
+
+.admin-stat-card--courses {
+    background: linear-gradient(to bottom right, #4D7C0F/0.2, #1E293B);
+    animation-delay: 0.2s;
+}
+
+.admin-stat-card--approvals {
+    background: linear-gradient(to bottom right, #9333EA/0.2, #1E293B);
+    animation-delay: 0.3s;
+}
+
+.admin-stat-card--health {
+    background: linear-gradient(to bottom right, #DB2777/0.2, #1E293B);
+    animation-delay: 0.4s;
+}
+
+.admin-stat-label {
+    color: #94A3B8;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.admin-stat-value {
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+.admin-stat-trend {
+    color: #4ADE80;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.admin-stat-trend--warning {
+    color: #FACC15;
+}
+
+/* Section Styles */
+.admin-section {
+    background-color: #1E293B;
+    border-radius: 0.75rem;
+    border: 1px solid #334155;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: fade-in 0.5s ease-out;
+}
+
+.admin-section-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #334155;
+}
+
+.admin-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.admin-section-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-right: 0.75rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.admin-section-icon--users {
+    background-color: #1D4ED8;
+    color: white;
+}
+
+.admin-section-icon--courses {
+    background-color: #4D7C0F;
+    color: white;
+    animation-delay: 0.2s;
+}
+
+.admin-section-icon--approvals {
+    background-color: #F59E0B;
+    color: white;
+    animation-delay: 0.3s;
+}
+
+.admin-section-icon--reports {
+    background-color: #9333EA;
+    color: white;
+    animation-delay: 0.4s;
+}
+
+.admin-section-content {
+    padding: 1.5rem;
+}
+
+/* Search Form */
+.admin-search-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .admin-search-form {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.admin-search-input,
+.admin-select {
+    width: 100%;
+    background-color: #0F172A;
+    border: 1px solid #334155;
+    color: #E2E8F0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.admin-search-input:focus,
+.admin-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #1D4ED8;
+    border-color: transparent;
+}
+
+.admin-search-input::placeholder {
+    color: #64748B;
+}
+
+.admin-search-button {
+    background: linear-gradient(to right, #1D4ED8, #4D7C0F);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    animation: pulse-glow 2s infinite;
+}
+
+.admin-search-button:hover {
+    background: linear-gradient(to right, #4D7C0F, #1D4ED8);
+}
+
+/* Table Styles */
+.admin-table-container {
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+}
+
+.admin-table-container:hover {
+    border-color: rgba(29, 78, 216, 0.5);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.admin-table-header {
+    padding: 0.75rem 1.5rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: #1E293B;
+}
+
+.admin-table-row {
+    transition: all 0.3s ease;
+    background-color: #0F172A;
+}
+
+.admin-table-row:hover {
+    background-color: rgba(30, 41, 59, 0.5);
+}
+
+.admin-table-cell {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    border-top: 1px solid #334155;
+}
+
+.admin-user-cell {
+    display: flex;
+    align-items: center;
+}
+
+.admin-user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background-color: #1D4ED8;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.admin-user-avatar:hover {
+    transform: scale(1.1);
+}
+
+.admin-user-info {
+    margin-left: 1rem;
+}
+
+.admin-user-name {
+    font-weight: 500;
+    color: #E2E8F0;
+}
+
+.admin-user-username {
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
+.admin-role-badge {
+    display: inline-flex;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+}
+
+.admin-role-badge:hover {
+    transform: scale(1.05);
+}
+
+.admin-role-badge--student {
+    background-color: rgba(74, 222, 128, 0.1);
+    color: #4ADE80;
+}
+
+.admin-action-button {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-right: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.admin-action-button--edit {
+    color: #1D4ED8;
+}
+
+.admin-action-button--edit:hover {
+    color: #4D7C0F;
+    text-decoration: underline;
+}
+
+.admin-action-button--suspend,
+.admin-action-button--delete {
+    color: #F87171;
+}
+
+.admin-action-button--suspend:hover,
+.admin-action-button--delete:hover {
+    color: #FCA5A5;
+    text-decoration: underline;
+}
+
+/* Course Management */
+.admin-course-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .admin-course-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.admin-subsection-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #E2E8F0;
+    margin-bottom: 1rem;
+}
+
+.admin-input,
+.admin-textarea {
+    width: 100%;
+    background-color: #0F172A;
+    border: 1px solid #334155;
+    color: #E2E8F0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.admin-input:focus,
+.admin-textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #1D4ED8;
+    border-color: transparent;
+}
+
+.admin-textarea {
+    min-height: 6rem;
+    resize: vertical;
+}
+
+.admin-submit-button {
+    background: linear-gradient(to right, #1D4ED8, #4D7C0F);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    animation: pulse-glow 2s infinite;
+    animation-delay: 0.5s;
+}
+
+.admin-submit-button:hover {
+    background: linear-gradient(to right, #4D7C0F, #1D4ED8);
+}
+
+.admin-course-list-container {
+    max-height: 16rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.admin-course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0F172A;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #334155;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.admin-course-item:hover {
+    border-color: rgba(29, 78, 216, 0.5);
+    background-color: rgba(30, 41, 59, 0.5);
+}
+
+.admin-course-name {
+    font-weight: 500;
+}
+
+.admin-course-instructor {
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
+.admin-course-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Approvals */
+.admin-approval-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.admin-approval-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0F172A;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+}
+
+.admin-approval-item:hover {
+    border-color: rgba(29, 78, 216, 0.5);
+}
+
+.admin-approval-title {
+    font-weight: 500;
+}
+
+.admin-approval-meta {
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
+.admin-approval-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.admin-approval-button {
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.admin-approval-button:hover {
+    transform: scale(1.05);
+}
+
+.admin-approval-button--approve {
+    background-color: rgba(74, 222, 128, 0.1);
+    color: #4ADE80;
+}
+
+.admin-approval-button--approve:hover {
+    background-color: rgba(74, 222, 128, 0.2);
+}
+
+.admin-approval-button--reject {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: #F87171;
+}
+
+.admin-approval-button--reject:hover {
+    background-color: rgba(248, 113, 113, 0.2);
+}
+
+.admin-approval-button--preview {
+    background-color: rgba(29, 78, 216, 0.1);
+    color: #1D4ED8;
+}
+
+.admin-approval-button--preview:hover {
+    background-color: rgba(29, 78, 216, 0.2);
+}
+
+/* Reports */
+.admin-reports-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .admin-reports-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.admin-export-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.admin-export-button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0F172A;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+}
+
+.admin-export-button:hover {
+    border-color: rgba(29, 78, 216, 0.5);
+    background-color: #1E293B;
+}
+
+.admin-export-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #1D4ED8;
+    transition: all 0.3s ease;
+}
+
+.admin-export-button:hover .admin-export-icon {
+    transform: scale(1.1);
+}
+
+.admin-activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.admin-activity-item {
+    background-color: #0F172A;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+}
+
+.admin-activity-item:hover {
+    border-color: rgba(29, 78, 216, 0.5);
+}
+
+.admin-activity-text {
+    font-size: 0.875rem;
+    color: #E2E8F0;
+}
+
+.admin-activity-highlight {
+    color: #1D4ED8;
+}
+
+.admin-activity-highlight--success {
+    color: #4D7C0F;
+}
+
+.admin-activity-time {
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
+/* Status Message */
+.admin-status-message {
+    background: linear-gradient(to right, rgba(29, 78, 216, 0.1), rgba(77, 124, 15, 0.1));
+    border: 1px solid rgba(77, 124, 15, 0.2);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    animation: fade-in 0.5s ease-out;
+    animation-delay: 1s;
+}
+
+.admin-status-icon {
+    background-color: #4D7C0F;
+    color: white;
+    padding: 0.25rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+    animation-duration: 2s;
+}
+
+.admin-status-title {
+    font-weight: 500;
+    color: #E2E8F0;
+}
+
+.admin-status-description {
+    font-size: 0.875rem;
+    color: #94A3B8;
+}
+
+/* Animations */
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.3); }
+    50% { box-shadow: 0 0 0 10px rgba(29, 78, 216, 0); }
+}

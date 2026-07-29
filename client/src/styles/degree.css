@@ -1,0 +1,500 @@
+           
+            :root {
+                --neon-blue: #1D4ED8;
+                --neon-green: #4D7C0F;
+                --neon-accent: #3B82F6;
+                --dark-bg: #0a0a12;
+                --darker-bg: #050508;
+                --card-bg: rgba(15, 15, 25, 0.7);
+                --text-primary: #f0f0ff;
+                --text-secondary: #b8b8d8;
+                --border-color: rgba(29, 78, 216, 0.3);
+                --shadow-color: rgba(29, 78, 216, 0.1);
+                --hover-shadow: rgba(77, 124, 15, 0.3);
+                --glass-effect: rgba(15, 15, 25, 0.7);
+                --binary-color: rgba(255, 255, 255, 0.03);
+                --circle-opacity: 0.15;
+            }
+    
+            /* Light Mode Overrides */
+            .light-mode {
+                --neon-blue: #2563EB;
+                --neon-green: #16A34A;
+                --neon-accent: #60A5FA;
+                --dark-bg: #FFFFFF;
+                --darker-bg: #F8FAFC;
+                --card-bg: rgba(255, 255, 255, 0.9);
+                --text-primary: #1E293B;
+                --text-secondary: #64748B;
+                --border-color: rgba(37, 99, 235, 0.2);
+                --shadow-color: rgba(0, 0, 0, 0.05);
+                --hover-shadow: rgba(22, 163, 74, 0.2);
+                --glass-effect: rgba(255, 255, 255, 0.9);
+                --binary-color: rgba(0, 0, 0, 0.03);
+                --circle-opacity: 0.08;
+                
+                background-image: 
+                    radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.05) 0%, transparent 25%),
+                    radial-gradient(circle at 80% 70%, rgba(22, 163, 74, 0.05) 0%, transparent 25%) !important;
+            }
+        
+        @font-face {
+            font-family: 'Cyber';
+            src: url('https://fonts.cdnfonts.com/css/cyberpunk-is-not-dead');
+            font-weight: normal;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(29, 78, 216, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(77, 124, 15, 0.1) 0%, transparent 25%);
+            
+            }
+
+    
+            /* Toggle Switch Styles */
+            .theme-toggle {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 30px;
+            }
+    
+            .theme-toggle input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+    
+            .toggle-slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: var(--neon-blue);
+                transition: .4s;
+                border-radius: 34px;
+            }
+    
+            .toggle-slider:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+    
+            input:checked + .toggle-slider {
+                background-color: var(--neon-green);
+            }
+    
+            input:checked + .toggle-slider:before {
+                transform: translateX(30px);
+            }
+    
+            .toggle-icon {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                color: white;
+                font-size: 14px;
+            }
+    
+            .sun-icon {
+                left: 8px;
+                display: none;
+            }
+    
+            .moon-icon {
+                right: 8px;
+            }
+    
+            .light-mode .sun-icon {
+                display: block;
+            }
+    
+            .light-mode .moon-icon {
+                display: none;
+            }
+    
+            /* Rest of your existing CSS... */
+            body {
+                background-color: var(--dark-bg);
+                color: var(--text-primary);
+                font-family: 'Segoe UI', sans-serif;
+                min-height: 100vh;
+                overflow-x: hidden;
+                background-image: 
+                    radial-gradient(circle at 20% 30%, rgba(29, 78, 216, 0.1) 0%, transparent 25%),
+                    radial-gradient(circle at 80% 70%, rgba(77, 124, 15, 0.1) 0%, transparent 25%);
+            }
+            
+            .cyber-card {
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                box-shadow: 0 0 15px var(--shadow-color);
+            }
+            
+            .cyber-card:hover {
+                box-shadow: 0 0 30px var(--hover-shadow);
+            }
+            
+            .binary-code {
+                color: var(--binary-color);
+            }
+            
+            .cyber-circle {
+                opacity: var(--circle-opacity);
+            }
+            
+        /* Glitch Effect */
+        .glitch-wrapper {
+            position: relative;
+        }
+        
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+        }
+        
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-green);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip-path: polygon(0 0%, 100% 0%, 100% 45%, 0 45%); }
+            20% { clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%); }
+            40% { clip-path: polygon(0 40%, 100% 40%, 100% 75%, 0 75%); }
+            60% { clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%); }
+            80% { clip-path: polygon(0 20%, 100% 20%, 100% 30%, 0 30%); }
+            100% { clip-path: polygon(0 50%, 100% 50%, 100% 70%, 0 70%); }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); }
+            20% { clip-path: polygon(0 3%, 100% 3%, 100% 30%, 0 30%); }
+            40% { clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%); }
+            60% { clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%); }
+            80% { clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%); }
+            100% { clip-path: polygon(0 50%, 100% 50%, 100% 70%, 0 70%); }
+        }
+        
+        /* Layout */
+        .cyber-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Header */
+        .cyber-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .cyber-title {
+            font-family: 'Cyber', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        .cyber-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .cyber-subtitle::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-green));
+            margin: 1.5rem auto 0;
+            border-radius: 3px;
+        }
+        
+        /* Grid */
+        .cyber-grid {
+           display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    justify-content: center; /* Centers items if they wrap */
+    margin-top: 3rem;
+        }
+        
+        /* Course Card */
+        .cyber-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(29, 78, 216, 0.3);
+            box-shadow: 0 0 15px rgba(29, 78, 216, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cyber-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(77, 124, 15, 0.3);
+            border-color: var(--neon-green);
+        }
+        
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-green));
+        }
+        
+        .cyber-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.05) 0%, rgba(77, 124, 15, 0.05) 100%);
+            z-index: -1;
+        }
+        
+        .card-content {
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-green);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Cyber', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .card-desc {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .cyber-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .cyber-btn:hover::before {
+            left: 100%;
+        }
+        
+        .view-btn {
+            background-color: rgba(29, 78, 216, 0.1);
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+        }
+        
+        .view-btn:hover {
+            background-color: rgba(29, 78, 216, 0.2);
+            box-shadow: 0 0 15px rgba(29, 78, 216, 0.3);
+        }
+        
+        .enroll-btn {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+            color: var(--text-primary);
+            box-shadow: 0 0 15px rgba(77, 124, 15, 0.3);
+        }
+        
+        .enroll-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(77, 124, 15, 0.5);
+        }
+        
+        .download-link {
+            color: var(--neon-green);
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .download-link:hover {
+            color: var(--neon-blue);
+        }
+        
+        /* Animated Background Elements */
+        .cyber-circle {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            z-index: 0;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-blue);
+            top: 20%;
+            left: 10%;
+        }
+        
+        .circle-2 {
+            width: 600px;
+            height: 600px;
+            background: var(--neon-green);
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-accent);
+            top: 50%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-50px) translateX(50px); }
+        }
+        
+        /* Binary Code Animation */
+        .binary-code {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.03);
+            font-size: 1rem;
+            font-family: monospace;
+            z-index: 1;
+            user-select: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .cyber-title {
+                font-size: 3rem;
+            }
+            
+            .cyber-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .cyber-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cyber-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .cyber-title {
+                font-size: 2.5rem;
+            }
+            
+            .cyber-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .cyber-grid {
+                grid-template-columns: 1fr;
+            }
+        }

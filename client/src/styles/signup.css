@@ -1,0 +1,303 @@
+:root {
+    /* Light Mode Colors */
+    --signup-bg-light: #F8FAFC;
+    --signup-card-bg-light: rgba(255, 255, 255, 0.9);
+    --signup-input-bg-light: rgba(255, 255, 255, 0.8);
+    --signup-text-primary-light: #1F2937;
+    --signup-text-secondary-light: #4B5563;
+    --signup-text-hint-light: rgba(75, 85, 99, 0.7);
+    --signup-text-login-light: rgba(75, 85, 99, 0.8);
+    --signup-border-primary-light: rgba(209, 213, 219, 0.7);
+    
+    /* Dark Mode Colors */
+    --signup-bg-dark: rgb(15, 23, 42);
+    --signup-card-bg-dark: rgba(30, 41, 59, 0.8);
+    --signup-input-bg-dark: rgba(30, 41, 59, 0.7);
+    --signup-text-primary-dark: white;
+    --signup-text-secondary-dark: rgb(226, 232, 240);
+    --signup-text-hint-dark: rgba(255, 255, 255, 0.6);
+    --signup-text-login-dark: rgba(255, 255, 255, 0.7);
+    --signup-border-primary-dark: rgb(51, 65, 85);
+    
+    /* Shared Colors */
+    --signup-accent-blue: #1D4ED8;
+    --signup-accent-cyan: rgb(6, 182, 212);
+    --signup-accent-light-cyan: rgb(34, 211, 238);
+    --signup-accent-green: #4D7C0F;
+    --signup-accent-link: rgb(103, 232, 249);
+    --signup-accent-success: rgb(74, 222, 128);
+    --signup-accent-error: rgb(248, 113, 113);
+    --signup-shadow-primary: rgba(0, 0, 0, 0.1);
+    --signup-shadow-secondary: rgba(0, 0, 0, 0.04);
+  }
+  
+  .light-mode {
+    --signup-bg: var(--signup-bg-light);
+    --signup-card-bg: var(--signup-card-bg-light);
+    --signup-input-bg: var(--signup-input-bg-light);
+    --signup-text-primary: var(--signup-text-primary-light);
+    --signup-text-secondary: var(--signup-text-secondary-light);
+    --signup-text-hint: var(--signup-text-hint-light);
+    --signup-text-login: var(--signup-text-login-light);
+    --signup-border-primary: var(--signup-border-primary-light);
+  }
+  
+  .dark-mode {
+    --signup-bg: var(--signup-bg-dark);
+    --signup-card-bg: var(--signup-card-bg-dark);
+    --signup-input-bg: var(--signup-input-bg-dark);
+    --signup-text-primary: var(--signup-text-primary-dark);
+    --signup-text-secondary: var(--signup-text-secondary-dark);
+    --signup-text-hint: var(--signup-text-hint-dark);
+    --signup-text-login: var(--signup-text-login-dark);
+    --signup-border-primary: var(--signup-border-primary-dark);
+  }
+  /* Base Styles */
+.signup-page {
+    background-color: var(--signup-bg);
+    color: var(--signup-text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .signup-main {
+    position: relative;
+  }
+  
+  /* Background Wrapper */
+  .signup-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--signup-bg);
+    overflow: hidden;
+  }
+  
+  /* Background Image */
+  .signup-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    z-index: 0;
+  }
+  
+  /* Aurora Glow Overlay */
+  .signup-glow-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  .signup-glow-circle {
+    position: absolute;
+    border-radius: 9999px;
+    opacity: 0.2;
+  }
+  
+  .signup-glow-circle--left {
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(to top right, var(--signup-accent-blue), var(--signup-accent-cyan), var(--signup-accent-green));
+    filter: blur(140px);
+    animation: pulse-slow 6s infinite ease-in-out;
+    left: -200px;
+    top: -200px;
+  }
+  
+  .signup-glow-circle--right {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(to bottom left, var(--signup-accent-green), rgb(59, 130, 246), var(--signup-accent-blue));
+    filter: blur(100px);
+    animation: slide-x 8s infinite ease-in-out;
+    right: -150px;
+    top: 50px;
+  }
+  
+  /* Signup Card */
+  .signup-card {
+    position: relative;
+    z-index: 10;
+    background-color: var(--signup-card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--signup-border-primary);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 28rem;
+    color: var(--signup-text-primary);
+    box-shadow: 0 20px 25px -5px var(--signup-shadow-primary), 0 10px 10px -5px var(--signup-shadow-secondary);
+    animation: fade-in 0.5s ease-out;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .signup-title {
+    font-size: 1.875rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, var(--signup-accent-blue), var(--signup-accent-light-cyan), var(--signup-accent-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.025em;
+  }
+  
+  /* Form Styles */
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .signup-input-group {
+    position: relative;
+  }
+  
+  .signup-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--signup-text-secondary);
+    margin-bottom: 0.25rem;
+    transition: color 0.3s ease;
+  }
+  
+  .signup-input-container {
+    position: relative;
+  }
+  
+  .signup-input {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: var(--signup-input-bg);
+    color: var(--signup-text-primary);
+    border: 1px solid var(--signup-border-primary);
+    border-radius: 0.75rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .signup-input:focus {
+    box-shadow: 0 0 0 2px var(--signup-accent-blue);
+  }
+  
+  .signup-input-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--signup-text-hint);
+    transition: color 0.3s ease;
+  }
+  
+  .signup-input-icon--email {
+    animation: bounce 2s infinite;
+  }
+  
+  .signup-input-icon--password,
+  .signup-input-icon--confirm {
+    animation: pulse 2s infinite;
+  }
+  
+  .signup-hint {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: var(--signup-text-hint);
+    transition: color 0.3s ease;
+  }
+  
+  .signup-error-message {
+    color: var(--signup-accent-error);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+  }
+  
+  .signup-error-message--required {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  /* Submit Button */
+  .signup-submit-button {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(to right, var(--signup-accent-blue), var(--signup-accent-cyan), var(--signup-accent-green));
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 10px 15px -3px var(--signup-shadow-primary);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .signup-submit-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 25px -5px var(--signup-shadow-primary);
+  }
+  
+  /* Login Link */
+  .signup-login-text {
+    text-align: center;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    color: var(--signup-text-login);
+    transition: color 0.3s ease;
+  }
+  
+  .signup-login-link {
+    color: var(--signup-accent-link);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .signup-login-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Success Message */
+  .signup-success-message {
+    color: var(--signup-accent-success);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 1rem;
+    display: none;
+  }
+  
+  /* Animations */
+  @keyframes pulse-slow {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  @keyframes slide-x {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-20px); }
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(-50%); }
+    50% { transform: translateY(-60%); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }

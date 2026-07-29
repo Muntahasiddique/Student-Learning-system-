@@ -1,0 +1,370 @@
+/* Root Variables */
+:root {
+    --background-gradient-start: #0f172a;
+    --background-gradient-mid: #1e293b;
+    --background-gradient-end: #0a0f1c;
+
+    --text-color: white;
+    --subtitle-color: rgba(255, 255, 255, 0.7);
+    --section-title-color: #67e8f9;
+
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --card-border: rgba(255, 255, 255, 0.2);
+    --card-glow-opacity: 0.2;
+    --card-glow-hover-opacity: 0.4;
+
+    --completed-glow-gradient-start: #67e8f9;
+    --completed-glow-gradient-end: #ec4899;
+
+    --pending-glow-gradient-start: #fcd34d;
+    --pending-glow-gradient-end: #f472b6;
+
+    --card-date-color: rgba(255, 255, 255, 0.6);
+    --card-info-color: rgba(255, 255, 255, 0.7);
+
+    --completed-percent-color: #4ade80;
+    --pending-percent-color: #fcd34d;
+
+    --circle-bg-stroke: rgba(75, 85, 99, 1);
+}
+
+/* Base Styles */
+.course-progress-page {
+    background: linear-gradient(to bottom right, var(--background-gradient-start), var(--background-gradient-mid), var(--background-gradient-end));
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+.course-progress-main {
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2.5rem 1rem;
+}
+
+/* Header Section */
+.course-progress-header {
+    margin-bottom: 3rem;
+    text-align: center;
+    animation: fade-in-down 0.5s ease-out;
+}
+
+.course-progress-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--completed-glow-gradient-start), var(--completed-glow-gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+@media (min-width: 768px) {
+    .course-progress-title {
+        font-size: 3rem;
+    }
+}
+
+.course-progress-subtitle {
+    color: var(--subtitle-color);
+    margin-top: 0.75rem;
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Section Styles */
+.course-progress-section {
+    margin-bottom: 3rem;
+}
+
+.course-progress-section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--section-title-color);
+    margin-bottom: 1.5rem;
+    animation: fade-in-right 0.5s ease-out;
+}
+
+/* Grid Layout */
+.course-progress-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    animation: fade-in-up 0.5s ease-out;
+}
+
+@media (min-width: 768px) {
+    .course-progress-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Card Styles */
+.course-progress-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(4px);
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.course-progress-card:hover {
+    transform: scale(1.02);
+}
+
+/* Card Glow Effect */
+.course-progress-card-glow {
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: var(--card-glow-opacity);
+    transition: opacity 0.3s ease;
+}
+
+.course-progress-card:hover .course-progress-card-glow {
+    opacity: var(--card-glow-hover-opacity);
+}
+
+.course-progress-card-glow--completed {
+    background: linear-gradient(to top right, var(--completed-glow-gradient-start), var(--completed-glow-gradient-end));
+    top: -4rem;
+    right: -4rem;
+}
+
+.course-progress-card-glow--pending {
+    background: linear-gradient(to top right, var(--pending-glow-gradient-start), var(--pending-glow-gradient-end));
+    top: -4rem;
+    right: -4rem;
+}
+
+/* Card Content */
+.course-progress-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.course-progress-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.course-progress-card-date {
+    font-size: 0.75rem;
+    color: var(--card-date-color);
+}
+
+.course-progress-card-info {
+    font-size: 0.875rem;
+    color: var(--card-info-color);
+    margin-bottom: 1rem;
+}
+
+.course-progress-card-course {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Grade Display */
+.course-progress-card-grade {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.course-progress-card-percent {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--completed-percent-color);
+}
+
+.course-progress-card-percent--pending {
+    color: var(--pending-percent-color);
+}
+
+.course-progress-card-circle {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+}
+
+.course-progress-card-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.course-progress-card-circle-bg {
+    fill: none;
+    stroke: var(--circle-bg-stroke);
+    stroke-width: 4;
+}
+
+.course-progress-card-circle-fill {
+    fill: none;
+    stroke: var(--completed-percent-color);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 8;
+}
+
+.course-progress-card-circle-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Animations */
+@keyframes fade-in-down {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-right {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+/* Light Mode Variables */
+.light-mode {
+    --background-gradient-start: #f8fafc;
+    --background-gradient-mid: #f1f5f9;
+    --background-gradient-end: #e2e8f0;
+
+    --text-color: #1e293b;
+    --subtitle-color: #64748b;
+    --section-title-color: #0ea5e9;
+
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-border: rgba(203, 213, 225, 0.5);
+    --card-glow-opacity: 0.15;
+    --card-glow-hover-opacity: 0.25;
+
+    --completed-glow-gradient-start: #22d3ee;
+    --completed-glow-gradient-end: #ec4899;
+
+    --pending-glow-gradient-start: #f59e0b;
+    --pending-glow-gradient-end: #f472b6;
+
+    --card-date-color: #64748b;
+    --card-info-color: #475569;
+
+    --completed-percent-color: #10b981;
+    --pending-percent-color: #f59e0b;
+
+    --circle-bg-stroke: #e2e8f0;
+}
+
+/* Light Mode Specific Adjustments */
+.light-mode .course-progress-page {
+    background: linear-gradient(
+        to bottom right, 
+        var(--background-gradient-start), 
+        var(--background-gradient-mid), 
+        var(--background-gradient-end)
+    );
+}
+
+.light-mode .course-progress-card {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+                0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--card-border);
+}
+
+.light-mode .course-progress-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Toggle Switch Styles */
+.theme-toggle-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0ea5e9;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #10b981;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(30px);
+}
+
+.toggle-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 14px;
+}
+
+.sun-icon {
+    left: 8px;
+    display: none;
+}
+
+.moon-icon {
+    right: 8px;
+}
+
+.light-mode .sun-icon {
+    display: block;
+}
+
+.light-mode .moon-icon {
+    display: none;
+}
