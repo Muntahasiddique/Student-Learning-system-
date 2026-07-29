@@ -1,5 +1,5 @@
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../../../client/src/components/Header';
+import Footer from '../../../client/src/components/Footer';
 import '../styles/adminpanel.css';
 
 export default function AdminDashboard() {

@@ -10,7 +10,7 @@ import Forum from './pages/Forum';
 import CodeEditor from './pages/CodeEditor';
 import GradeReport from './pages/GradeReport';
 import CourseDetail from './pages/CourseDetail';
-import AdminDashboard from './pages/AdminDashboard';
+
 
 export default function App() {
   return (
@@ -25,7 +25,7 @@ export default function App() {
         <Route path="/editor" element={<CodeEditor />} />
         <Route path="/grades" element={<GradeReport />} />
         <Route path="/content/:subjectId" element={<CourseDetail />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+       
       </Routes>
     </Router>
   );
