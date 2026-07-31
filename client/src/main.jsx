@@ -11,7 +11,6 @@ import './styles/header.css';
 import './styles/footer.css';
 import './styles/login.css';
 import './styles/signup.css';
-import './styles/adminpanel.css';
 import './styles/dsaDetail.css';
 import './styles/courses-page.css';
 import './styles/Gradereport.css';

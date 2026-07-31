@@ -10,7 +10,7 @@ export default function Login() {
         {/* Background Wrapper */}
         <div className="login-wrapper">
           {/* Background Image Overlay */}
-          <img src="/images/photo-1715538859909-914de12746b8.avif" alt="Background" className="login-bg-image" />
+          <img src="./images/photo-1715538859909-914de12746b8.avif" alt="Background" className="login-bg-image" />
           
           {/* Aurora Glow Overlay */}
           <div className="login-glow-overlay">
