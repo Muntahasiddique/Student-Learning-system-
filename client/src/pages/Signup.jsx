@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -5,47 +7,48 @@ import Footer from '../components/Footer';
 import '../styles/signup.css';
 
 export default function Signup() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
-  const navigate = useNavigate();
+  const [name , setname] = useState("")
+  const [email, setemail] = useState("")
+   const [password , setpassword] = useState("")
+   const [confirmpassword , setconfirmpassword] = useState("")
+     const [role , setrole] = useState("Student")
+     const [errorMsg, setErrorMsg] = useState("");
+const [successMsg, setSuccessMsg] = useState("");
+const [showPassword, setShowPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMsg('');
-    setSuccessMsg('');
+const navigate = useNavigate();
 
-    if (password !== confirmPassword) {
-      setErrorMsg('Passwords do not match.');
-      return;
-    }
+async function handleSubmit(e)
+{
+ e.preventDefault();
+ setErrorMsg("")
+ setSuccessMsg("")
+if(password !== confirmpassword){
+  return setErrorMsg("Passwords do not match")
+}
+try {
+  const response = await axios.post("http://localhost:3000/api/auth/signup" , {
+    name,
+    email,
+    password,
+    confirmpassword,
+    role
+  })
+  setSuccessMsg("Response sent Successully");
+  navigate('/login');
+} catch (error) {
+  if(error.response){
+  setErrorMsg(error.response.data.message)
+  }
 
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
+  else{
+     setErrorMsg("Could not connect to server. Please try again.");
+  }
+}
 
-      const data = await response.json();
+}
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong during registration.');
-      }
-
-      setSuccessMsg('Account created successfully. Let\'s get started!');
-      setTimeout(() => {
-        navigate('/login');
-      }, 1500);
-    } catch (err) {
-      setErrorMsg(err.message);
-    }
-  };
 
   return (
     <div className="signup-page">
@@ -75,7 +78,7 @@ export default function Signup() {
                     placeholder="Muntaha" 
                     className="signup-input" 
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setname(e.target.value)}
                     required 
                   />
                 </div>
@@ -90,7 +93,7 @@ export default function Signup() {
                     placeholder="you@example.com" 
                     className="signup-input" 
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setemail(e.target.value)}
                     required 
                   />
                 </div>
@@ -101,31 +104,46 @@ export default function Signup() {
                 <label className="signup-label">Password</label>
                 <div className="signup-input-container">
                   <input 
-                    type="password" 
+                    type={showPassword ? "text" : "password"} 
                     placeholder="Must be at least 6 characters" 
                     className="signup-input" 
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setpassword(e.target.value)}
                     required 
                   />
+                  <span onClick={()=>setShowPassword(!showPassword)} className="signup-eye-icon"> {showPassword ?<FiEye/> : <FiEyeOff/>}</span>
                 </div>
                 <p className="signup-hint">Use a mix of letters, numbers, and symbols for a strong password.</p>
               </div>
 
-              {/* Confirm Password Field */}
+              {/* Confirm pass*/}
               <div className="signup-input-group">
                 <label className="signup-label">Confirm Password</label>
                 <div className="signup-input-container">
                   <input 
-                    type="password" 
-                    placeholder="Re-type your password" 
+                    type={showConfirmPassword ? "text" : "password"}  
+                    placeholder="Confirm Password " 
                     className="signup-input" 
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={confirmpassword}
+                    onChange={(e) => setconfirmpassword(e.target.value)}
                     required 
                   />
+                  <span onClick={()=>setShowConfirmPassword(!showConfirmPassword)} className="signup-eye-icon" >{showConfirmPassword ? <FiEye/>:<FiEyeOff/> }</span>
                 </div>
               </div>
+
+                  {/* Role*/}
+              <div className="signup-input-group">
+                <label className="signup-label">Role</label>
+                <div className="signup-input-container">
+                <select value={role}  onChange={(e) => setrole(e.target.value) } className="signup-input" >
+                <option value={"Student"}>Student</option>
+                <option value={"Teacher"}>Teacher</option>
+              </select>
+                 
+                </div>
+              </div>
+           
 
               {errorMsg && <p className="signup-error-message" style={{ display: 'block' }}>⚠️ {errorMsg}</p>}
               {successMsg && <p className="signup-success-message" style={{ display: 'block' }}>{successMsg}</p>}

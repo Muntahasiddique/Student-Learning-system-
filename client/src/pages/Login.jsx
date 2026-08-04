@@ -1,11 +1,49 @@
+import { useState } from 'react';
+import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/login.css';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
+const [email,setemail] = useState("");
+const [password,setpassword] = useState("");
+const [errorMsg, setErrorMsg] = useState("");
+const [successMsg, setSuccessMsg] = useState("");
+
+const navigate = useNavigate();
+
+async function handleSubmit(e){
+e.preventDefault();
+setErrorMsg("");
+setSuccessMsg("");
+
+try {
+  const response = await axios.post("http://localhost:3000/api/auth/login" ,{
+    email,
+    password,
+  } )
+  if(response.data.token){
+    const token = response.data.token;
+    localStorage.setItem('authtoken' , token)
+  }
+
+setSuccessMsg("Login Successully");
+navigate('/dashboard');
+   
+  
+} catch (error) {
+  if (error.response) {
+    setErrorMsg(error.response.data.message);
+  } else {
+    setErrorMsg("Could not connect to server. Please try again.");
+  }
+}
+
+}
   return (
     <div className="login-page">
        <Header />
-      
+   
       <main className="login-main">
         {/* Background Wrapper */}
         <div className="login-wrapper">
@@ -24,12 +62,12 @@ export default function Login() {
               Welcome back! Ready to keep learning?
             </h2>
           
-            <form id="loginForm" className="login-form">
+            <form id="loginForm" className="login-form" onSubmit={handleSubmit} >
               {/* Email */}
               <div className="login-input-group">
                 <label className="login-label">Email Address</label>
                 <div className="login-input-container">
-                  <input type="email" id="loginEmail" placeholder="you@example.com" className="login-input" />
+                  <input type="email" id="loginEmail" placeholder="you@example.com" className="login-input" value={email} onChange={(e)=> setemail(e.target.value)} />
                   <i className="fas fa-envelope login-input-icon login-input-icon--email"></i>
                 </div>
                 <p className="login-error-message" id="loginEmailError">⚠️ Please enter a valid email.</p>
@@ -39,12 +77,13 @@ export default function Login() {
               <div className="login-input-group">
                 <label className="login-label">Password</label>
                 <div className="login-input-container">
-                  <input type="password" id="loginPassword" placeholder="Must be at least 8 characters" className="login-input" />
+                  <input type="password" id="loginPassword" placeholder="Must be at least 8 characters" className="login-input" value={password} onChange={(e)=> setpassword(e.target.value)}  />
                   <i className="fas fa-lock login-input-icon login-input-icon--password"></i>
                 </div>
                 <p className="login-hint">Use a mix of letters, numbers, and symbols for a strong password.</p>
                 <p className="login-error-message" id="loginPasswordError">⚠️ Password must be at least 8 characters.</p>
               </div>
+
           
               {/* Submit */}
               <button type="submit" className="login-submit-button">

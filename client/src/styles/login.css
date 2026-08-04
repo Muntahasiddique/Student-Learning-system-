@@ -197,19 +197,19 @@
 .login-input-icon {
   position: absolute;
   left: 0.75rem;
-  top: 50%;
+  top: 59%;
   transform: translateY(-50%);
-  color: var(--login-text-hint);
+  color: rgb(164 153 153 / 60%);
   transition: color 0.3s ease;
 }
 
-.login-input-icon--email {
+/* .login-input-icon--email {
   animation: bounce 2s infinite;
 }
 
 .login-input-icon--password {
   animation: pulse 2s infinite;
-}
+} */
 
 .login-hint {
   font-size: 0.875rem;

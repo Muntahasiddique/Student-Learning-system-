@@ -5,14 +5,17 @@ require('dotenv').config();
 
 const Signup = async (req , res)=>{
     try {
-const { name , email ,password,role } = req.body;
-if(!email || !password || !name || !role){
+const { name , email ,password, confirmpassword , role } = req.body;
+if(!email || !password || !confirmpassword || !name || !role){
     return res.status(400).json({message : "Feild is Missing"})
 }
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 if(!passwordRegex.test(password)){
     return res.status(400).json({message : "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."})
+}
+if(password != confirmpassword){
+    return res.status(400).json({message : "Password must be matched"})
 }
 
     const existingUser = await userModel.findOne({email});

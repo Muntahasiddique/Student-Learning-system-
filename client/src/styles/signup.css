@@ -135,6 +135,7 @@
     box-shadow: 0 20px 25px -5px var(--signup-shadow-primary), 0 10px 10px -5px var(--signup-shadow-secondary);
     animation: fade-in 0.5s ease-out;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin: 20px;
   }
   
   .signup-title {
@@ -172,7 +173,15 @@
   .signup-input-container {
     position: relative;
   }
-  
+  .signup-eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #f4f2f2; 
+}
+
   .signup-input {
     width: 100%;
     margin-top: 0.25rem;
@@ -209,7 +218,10 @@
   .signup-input-icon--confirm {
     animation: pulse 2s infinite;
   }
-  
+  .signup-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--signup-input-bg) inset;
+  -webkit-text-fill-color: var(--signup-text-primary);
+}
   .signup-hint {
     font-size: 0.875rem;
     margin-top: 0.25rem;

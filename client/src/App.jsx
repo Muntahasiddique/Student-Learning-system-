@@ -10,6 +10,7 @@ import Forum from './pages/Forum';
 import CodeEditor from './pages/CodeEditor';
 import GradeReport from './pages/GradeReport';
 import CourseDetail from './pages/CourseDetail';
+import Dashboard from './pages/Dashboard';
 
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/editor" element={<CodeEditor />} />
         <Route path="/grades" element={<GradeReport />} />
         <Route path="/content/:subjectId" element={<CourseDetail />} />
+        <Route path="/dashboard" element={<Dashboard />} />
        
       </Routes>
     </Router>
