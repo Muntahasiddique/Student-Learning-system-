@@ -12,8 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 const authRoutes = require('./routes/auth.routes');
+const courseRoutes = require('./routes/course.routes')
 
 app.use('/api/auth' , authRoutes);
+app.use('/api' , courseRoutes);
 
 app.get('/api/health' , (req ,res) =>{
 res.json({status:"ok"});

@@ -23,7 +23,7 @@ if(existingUser){
    return res.status(400).json({message:"already exists"});
 }
 const newUser = await userModel.create({name , email ,password,role})
-return res.status(201).json({message : "Succefully Created"})
+return res.status(201).json({message : "Successfully Created"})
 } catch (error) {
     console.error("SignUp Database Error" , error)
             return res.status(500).json({message :"SignUp Database Error"})

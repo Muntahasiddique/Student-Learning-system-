@@ -1,5 +1,5 @@
 # Build Log
-
+## Week 1
 ## N1 — App setup + Mongo connect
 - Built: app.js with mongoose connection (proper .then/.catch), /api/health route
 - Confused me: passing app.listen(...) directly into .then() runs it immediately instead of waiting — needed to wrap in () => {}
@@ -30,3 +30,13 @@
 - Built: Login form storing the returned JWT in localStorage on success, plus a Dashboard page that checks for that token on load and redirects to /login if missing.
 - Confused me: Why the redirect needed `useEffect` at all instead of a plain `if` in the component body — turns out calling `navigate()` mid-render is a side effect React disallows during render; `useEffect(() => {...}, [])` defers it until after mount. Also mixed up token *presence* with token *validity* — localStorage holds the token string indefinitely regardless of its baked-in `expiresIn`, since nothing reads or checks that expiry client-side. Only backend `jwt.verify()` (not built yet) actually enforces it.
 - Would forget in 2 weeks: Login's success check and Dashboard's token check aren't redundant — they run at different times (one at the moment of login, one on every visit to a protected page, regardless of how the user got there). Also: hooks can only be called inside the component function, never at file top-level, and `return` must sit as a sibling statement outside `useEffect`, never nested inside it.
+
+## Week 2
+## N1 Course model.
+- Built: Course schema with title, description, duration, enrolledCount/rating (defaulted, not required), degree/difficulty/category, price, unique coursecode, instructor/createdBy as plain strings for now.
+Confused me: required: true + default on the same field are contradictory — required blocks the document before the default could ever apply.
+- Would forget in 2 weeks: createdBy/instructor should become real ObjectId + ref: 'User' references in Week 3 once populate() is actually taught — don't forget to circle back and upgrade these fields then.
+
+## N2 Built: POST /api/courses (create) and GET /api/courses (list all)
+- Confused me: !price treats 0 as falsy/missing, even though 0 is a valid price (free course) — had to check price === undefined instead of just !price
+- Would forget in 2 weeks: !variable catches more than "missing" — it also catches 0, "", false. Only safe for fields where an empty/zero value is never legitimate.
