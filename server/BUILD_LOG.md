@@ -40,3 +40,8 @@ Confused me: required: true + default on the same field are contradictory — re
 ## N2 Built: POST /api/courses (create) and GET /api/courses (list all)
 - Confused me: !price treats 0 as falsy/missing, even though 0 is a valid price (free course) — had to check price === undefined instead of just !price
 - Would forget in 2 weeks: !variable catches more than "missing" — it also catches 0, "", false. Only safe for fields where an empty/zero value is never legitimate.
+
+## N3 — Course detail, update, delete backend
+- Built: GET /api/courses/:id (getCourseById), PUT /api/courses/:id (updateCourse), DELETE /api/courses/:id (deleteCourse) — all using req.params to get the id, all with 404-if-not-found handling.
+- Confused me: `req.params` vs `req.body` — GET and DELETE requests have no body, so an identifier like a course id can't travel there. It has to live in the URL itself (`/courses/:id`), which Express captures into `req.params.id`. Took a while and a real multi-day gap to click, but tracing a real request step-by-step (client sends full URL → Express matches route pattern → params extracted) is what made it land.
+- Would forget in 2 weeks: `findByIdAndUpdate(id, updates, {new: true})` — without `{new: true}` (or its modern equivalent `{returnDocument: 'after'}`), Mongoose returns the document as it looked *before* the update, not after — meaning a client could get back stale/old data even though the update succeeded in the DB. Also: REST convention puts the action in the HTTP method (GET/POST/PUT/DELETE), not the URL — briefly tried renaming routes like `/getAll`, `/Update/:id` and it broke consistency/predictability for no functional gain; reverted to `/courses`, `/courses/:id` with different methods instead.

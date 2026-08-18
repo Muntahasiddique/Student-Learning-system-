@@ -33,7 +33,56 @@ return res.status(200).json({message: "Course Found" , courses : courseList});
     }
 }
 
+const getCourseById = async (req ,res)=>{
+    try {
+        const {id} = req.params;
+        const course = await courseModel.findById(id);
+        if(!course){
+            return res.status(404).json({message:"Course not Found"});
+        }
+        return res.status(200).json({foundcourse:course})
+
+
+    } catch (error) {
+        console.error("Couese by id Error in database" , error);
+        return res.status(500).json({message :"Course By id Database Error"});
+    }
+}
+
+const updateCourse = async (req , res)=>{
+    try {
+        const {id} = req.params;
+        const UpdatedCourse = await courseModel.findByIdAndUpdate(id , req.body,{returnDocument: 'after'});
+        if(!UpdatedCourse){
+            return res.status(404).json({message:"Course not Found"});
+        }
+       return res.status(200).json({UpdatedCourse : UpdatedCourse})
+        
+    } catch (error) {
+         console.error("Couese by id Error in database" , error);
+        return res.status(500).json({message :"Course By id Database Error"});
+    }
+}
+const deleteCourse = async (req  ,res)=>{
+    try{
+        const {id} = req.params;
+const  deletedCourse = await courseModel.findByIdAndDelete(id);
+if(!deletedCourse){
+return res.status(404).json({message:"Course not Found"});
+}
+ return res.status(200).json({message:"Course  deleted Successfully" , deletedCourse:deletedCourse})
+        
+    }
+    catch (error) {
+         console.error("Couese by id Error in database" , error);
+        return res.status(500).json({message :"Course By id Database Error"});
+    }
+    
+}
 module.exports = {
     createCourse,
-    getAllCourses
+    getAllCourses,
+    getCourseById,
+    updateCourse,
+    deleteCourse
 }
