@@ -23,8 +23,31 @@ return res.status(201).json({message: "Course Created"});
 const getAllCourses = async (req , res) =>{
 
     try {
-
-        const courseList =await courseModel.find({})
+      const {difficulty, category, degree, price,search}= req.query;
+      
+    const filter ={};
+    if(search){
+        filter.$or = [
+ {title : {$regex:search , $options:'i'}},
+  {description :  {$regex:search , $options:'i'}}
+        ];
+  
+}
+    if (difficulty) { filter.difficulty = {$regex: `^${difficulty}$`,$options:'i'} ; }
+if (category) { filter.category = { $regex: `^${category}$`, $options: 'i' } }
+if (degree) { filter.degree = { $regex: `^${degree}$`, $options: 'i' } }
+if (price) {
+            // Translate frontend strings to database numbers
+            if (price.toLowerCase() === 'free') {
+                filter.price = 0;
+            } else if (price.toLowerCase() === 'premium') {
+                filter.price = { $gt: 0 }; // $gt means "Greater Than" 0
+            } else if (!isNaN(price)) {
+                filter.price = Number(price); // Fallback in case a raw number is sent
+            }
+        }
+        const courseList =await courseModel.find(filter)
+        
 return res.status(200).json({message: "Course Found" , courses : courseList});
         
     } catch (error) {

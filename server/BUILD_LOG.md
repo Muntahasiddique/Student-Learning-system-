@@ -45,3 +45,9 @@ Confused me: required: true + default on the same field are contradictory — re
 - Built: GET /api/courses/:id (getCourseById), PUT /api/courses/:id (updateCourse), DELETE /api/courses/:id (deleteCourse) — all using req.params to get the id, all with 404-if-not-found handling.
 - Confused me: `req.params` vs `req.body` — GET and DELETE requests have no body, so an identifier like a course id can't travel there. It has to live in the URL itself (`/courses/:id`), which Express captures into `req.params.id`. Took a while and a real multi-day gap to click, but tracing a real request step-by-step (client sends full URL → Express matches route pattern → params extracted) is what made it land.
 - Would forget in 2 weeks: `findByIdAndUpdate(id, updates, {new: true})` — without `{new: true}` (or its modern equivalent `{returnDocument: 'after'}`), Mongoose returns the document as it looked *before* the update, not after — meaning a client could get back stale/old data even though the update succeeded in the DB. Also: REST convention puts the action in the HTTP method (GET/POST/PUT/DELETE), not the URL — briefly tried renaming routes like `/getAll`, `/Update/:id` and it broke consistency/predictability for no functional gain; reverted to `/courses`, `/courses/:id` with different methods instead.
+
+## N4 CourseCatalog.jsx (fetch all + map + loading/error states).
+
+- Built: Courses.jsx fetches real data via axios + useEffect, replaced hardcoded fake cards with .map() over real courses
+Confused me: forgetting return inside a curly-brace arrow function passed to .map() — silently returns undefined for every item, no error thrown, just nothing renders
+Would forget in 2 weeks: setloading(false) needs to run in both the success AND catch branches, or a failed fetch leaves the UI stuck in loading state forever

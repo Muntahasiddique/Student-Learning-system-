@@ -1,8 +1,52 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/courses-page.css';
+import axios from 'axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Courses() {
+
+const [courses , setcourses] = useState([]);
+const [loading , setloading] = useState(true);
+const [error, seterror] = useState("");
+const [searchTerm , setsearchTerm] = useState("");
+const [selectedDegree, setSelectedDegree] = useState("");
+const [selectedDifficulty, setSelectedDifficulty] = useState("");
+const [selectedCategory, setSelectedCategory] = useState("");
+const [selectedPrice, setSelectedPrice] = useState("");
+
+ useEffect(()=>{
+  async function fetchCourses(){
+  try {
+    const response = await axios.get('http://localhost:3000/api/courses', {
+    params:{
+      search:searchTerm,
+       difficulty:selectedDifficulty,
+       category:selectedCategory,
+        degree:selectedDegree,
+         price:selectedPrice,
+    }
+    });
+  
+setcourses(response.data.courses);
+setloading(false);
+    
+    
+  } catch (error) {
+    if (error.response) {
+    seterror(error.response.data.message);
+  } else {
+    seterror("Could not connect to server. Please try again.");
+  }
+  setloading(false)
+  }
+
+  }
+fetchCourses()
+},[searchTerm, selectedDegree, selectedDifficulty, selectedCategory, selectedPrice])
+
+
   return (
     <div className="courses-page">
       <Header /> 
@@ -40,6 +84,8 @@ export default function Courses() {
                 type="text"
                 placeholder="Search by course, topic, or degree..."
                 className="courses-search-input"
+                value={searchTerm}
+                onChange={(e)=>setsearchTerm(e.target.value)}
               />
               <button className="courses-search-button">
                 <i className="fas fa-arrow-right"></i>
@@ -63,7 +109,7 @@ export default function Courses() {
                   </div>
                   <label htmlFor="degree" className="courses-filter-label">Degree Program</label>
                 </div>
-                <select id="degree" className="courses-filter-select courses-filter-select--degree" defaultValue="" aria-label="Degree Program">
+                <select id="degree" className="courses-filter-select courses-filter-select--degree" value={selectedDegree} onChange={(e) => setSelectedDegree(e.target.value)}  aria-label="Degree Program">
                   <option value="" disabled>Select a degree</option>
                   <option>BS Computer Science</option>
                   <option>BS Data Science</option>
@@ -79,7 +125,7 @@ export default function Courses() {
                   </div>
                   <label htmlFor="difficulty" className="courses-filter-label">Difficulty Level</label>
                 </div>
-                <select id="difficulty" className="courses-filter-select courses-filter-select--difficulty" defaultValue="" aria-label="Difficulty Level">
+                <select id="difficulty" className="courses-filter-select courses-filter-select--difficulty" aria-label="Difficulty Level" value={selectedDifficulty} onChange={(e) =>setSelectedDifficulty(e.target.value)} >
                   <option value="" disabled>Select difficulty</option>
                   <option>Beginner</option>
                   <option>Intermediate</option>
@@ -94,7 +140,7 @@ export default function Courses() {
                   </div>
                   <label htmlFor="category" className="courses-filter-label">Category</label>
                 </div>
-                <select id="category" className="courses-filter-select courses-filter-select--category" defaultValue="" aria-label="Category">
+                <select id="category" className="courses-filter-select courses-filter-select--category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} aria-label="Category">
                   <option value="" disabled>Choose a subject</option>
                   <option>Programming</option>
                   <option>Machine Learning</option>
@@ -111,7 +157,7 @@ export default function Courses() {
                   </div>
                   <label htmlFor="price" className="courses-filter-label">Price Range</label>
                 </div>
-                <select id="price" className="courses-filter-select courses-filter-select--price" defaultValue="" aria-label="Price Range">
+                <select id="price" className="courses-filter-select courses-filter-select--price" value={selectedPrice} onChange={(e) => setSelectedPrice(e.target.value)} aria-label="Price Range">
                   <option value="" disabled>Choose price</option>
                   <option>Free</option>
                   <option>Premium</option>
@@ -127,20 +173,24 @@ export default function Courses() {
             </h3>
             
             <div className="courses-grid">
-              {/* Course Card 1 */}
-              <div className="course-card">
+               {courses.map((course)=>{
+                return (              <div className="course-card" key={course._id} >
                 <div className="course-card-badge">BESTSELLER</div>
                 <div className="course-card-header">
                   <div className="course-card-icon">
                     <i className="fas fa-project-diagram"></i>
                   </div>
-                  <h4 className="course-card-title">Data Structures & Algorithms</h4>
+                  <h4 className="course-card-title">{course.title}</h4>
                 </div>
-                <p className="course-card-description">Master the building blocks of computer science and efficient problem-solving techniques.</p>
+                <p className="course-card-description"> {course.description}</p>
                 <div className="course-card-meta">
-                  <span><i className="fas fa-clock"></i> 42h</span>
-                  <span><i className="fas fa-user-graduate"></i> 2.1K+</span>
-                  <span><i className="fas fa-star"></i> 4.9</span>
+                
+  <span><i className="fas fa-clock"></i>{course.duration} </span>
+  <span><i className="fas fa-layer-group"></i> {course.difficulty}</span>
+  <span><i className="fas fa-tag"></i> {course.price}</span>
+  <span><i className="fas fa-user-graduate"></i> {course.enrolledCount}</span>
+  <span><i className="fas fa-star"></i>{course.rating}</span>
+
                 </div>
                 <div className="course-card-actions">
                   <button className="course-action-btn course-action-btn--view">
@@ -153,62 +203,9 @@ export default function Courses() {
                 <a href="#" className="course-card-link">
                   <i className="fas fa-download"></i> Syllabus
                 </a>
-              </div>
-              
-              {/* Course Card 2 */}
-              <div className="course-card">
-                <div className="course-card-badge">NEW</div>
-                <div className="course-card-header">
-                  <div className="course-card-icon">
-                    <i className="fas fa-code"></i>
-                  </div>
-                  <h4 className="course-card-title">Web Development</h4>
-                </div>
-                <p className="course-card-description">HTML, CSS, JavaScript & modern web tools for building responsive applications.</p>
-                <div className="course-card-meta">
-                  <span><i className="fas fa-clock"></i> 36h</span>
-                  <span><i className="fas fa-user-graduate"></i> 3.5K+</span>
-                  <span><i className="fas fa-star"></i> 4.8</span>
-                </div>
-                <div className="course-card-actions">
-                  <button className="course-action-btn course-action-btn--view">
-                    <i className="fas fa-eye"></i> Preview
-                  </button>
-                  <button className="course-action-btn course-action-btn--enroll">
-                    <i className="fas fa-bolt"></i> Enroll
-                  </button>
-                </div>
-                <a href="#" className="course-card-link">
-                  <i className="fas fa-download"></i> Syllabus
-                </a>
-              </div>
-              
-              {/* Course Card 3 */}
-              <div className="course-card">
-                <div className="course-card-header">
-                  <div className="course-card-icon">
-                    <i className="fas fa-cubes"></i>
-                  </div>
-                  <h4 className="course-card-title">Object-Oriented Programming</h4>
-                </div>
-                <p className="course-card-description">Design scalable and reusable software systems with OOP principles.</p>
-                <div className="course-card-meta">
-                  <span><i className="fas fa-clock"></i> 30h</span>
-                  <span><i className="fas fa-user-graduate"></i> 1.8K+</span>
-                  <span><i className="fas fa-star"></i> 4.7</span>
-                </div>
-                <div className="course-card-actions">
-                  <button className="course-action-btn course-action-btn--view">
-                    <i className="fas fa-eye"></i> Preview
-                  </button>
-                  <button className="course-action-btn course-action-btn--enroll">
-                    <i className="fas fa-bolt"></i> Enroll
-                  </button>
-                </div>
-                <a href="#" className="course-card-link">
-                  <i className="fas fa-download"></i> Syllabus
-                </a>
-              </div>
+              </div>)
+
+               })}
             </div>
           </section>
 
