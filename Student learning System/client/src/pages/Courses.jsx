@@ -10,11 +10,24 @@ export default function Courses() {
 const [courses , setcourses] = useState([]);
 const [loading , setloading] = useState(true);
 const [error, seterror] = useState("");
+const [searchTerm , setsearchTerm] = useState("");
+const [selectedDegree, setSelectedDegree] = useState("");
+const [selectedDifficulty, setSelectedDifficulty] = useState("");
+const [selectedCategory, setSelectedCategory] = useState("");
+const [selectedPrice, setSelectedPrice] = useState("");
 
  useEffect(()=>{
   async function fetchCourses(){
   try {
-    const response = await axios.get('http://localhost:3000/api/courses');
+    const response = await axios.get('http://localhost:3000/api/courses', {
+    params:{
+      search:searchTerm,
+       difficulty:selectedDifficulty,
+       category:selectedCategory,
+        degree:selectedDegree,
+         price:selectedPrice,
+    }
+    });
   
 setcourses(response.data.courses);
 setloading(false);
@@ -31,7 +44,7 @@ setloading(false);
 
   }
 fetchCourses()
-},[])
+},[searchTerm, selectedDegree, selectedDifficulty, selectedCategory, selectedPrice])
 
 
   return (
@@ -71,6 +84,8 @@ fetchCourses()
                 type="text"
                 placeholder="Search by course, topic, or degree..."
                 className="courses-search-input"
+                value={searchTerm}
+                onChange={(e)=>setsearchTerm(e.target.value)}
               />
               <button className="courses-search-button">
                 <i className="fas fa-arrow-right"></i>
@@ -94,7 +109,7 @@ fetchCourses()
                   </div>
                   <label htmlFor="degree" className="courses-filter-label">Degree Program</label>
                 </div>
-                <select id="degree" className="courses-filter-select courses-filter-select--degree" defaultValue="" aria-label="Degree Program">
+                <select id="degree" className="courses-filter-select courses-filter-select--degree" value={selectedDegree} onChange={(e) => setSelectedDegree(e.target.value)}  aria-label="Degree Program">
                   <option value="" disabled>Select a degree</option>
                   <option>BS Computer Science</option>
                   <option>BS Data Science</option>
@@ -110,7 +125,7 @@ fetchCourses()
                   </div>
                   <label htmlFor="difficulty" className="courses-filter-label">Difficulty Level</label>
                 </div>
-                <select id="difficulty" className="courses-filter-select courses-filter-select--difficulty" defaultValue="" aria-label="Difficulty Level">
+                <select id="difficulty" className="courses-filter-select courses-filter-select--difficulty" aria-label="Difficulty Level" value={selectedDifficulty} onChange={(e) =>setSelectedDifficulty(e.target.value)} >
                   <option value="" disabled>Select difficulty</option>
                   <option>Beginner</option>
                   <option>Intermediate</option>
@@ -125,7 +140,7 @@ fetchCourses()
                   </div>
                   <label htmlFor="category" className="courses-filter-label">Category</label>
                 </div>
-                <select id="category" className="courses-filter-select courses-filter-select--category" defaultValue="" aria-label="Category">
+                <select id="category" className="courses-filter-select courses-filter-select--category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} aria-label="Category">
                   <option value="" disabled>Choose a subject</option>
                   <option>Programming</option>
                   <option>Machine Learning</option>
@@ -142,7 +157,7 @@ fetchCourses()
                   </div>
                   <label htmlFor="price" className="courses-filter-label">Price Range</label>
                 </div>
-                <select id="price" className="courses-filter-select courses-filter-select--price" defaultValue="" aria-label="Price Range">
+                <select id="price" className="courses-filter-select courses-filter-select--price" value={selectedPrice} onChange={(e) => setSelectedPrice(e.target.value)} aria-label="Price Range">
                   <option value="" disabled>Choose price</option>
                   <option>Free</option>
                   <option>Premium</option>
