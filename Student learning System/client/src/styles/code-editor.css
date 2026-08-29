@@ -1,0 +1,366 @@
+:root {
+    /* Background Colors */
+    --code-editor-bg: #0F172A;
+    --panel-bg-gradient: linear-gradient(135deg, rgba(30, 58, 138, 0.8), rgba(20, 83, 45, 0.8));
+    --textarea-bg: rgba(15, 23, 42, 0.8);
+    --console-bg: rgba(15, 23, 42, 0.7);
+    --selector-bg: rgba(255, 255, 255, 0.05);
+    
+    /* Text Colors */
+    --text-primary: #E2E8F0;
+    --text-secondary: #94A3B8;
+    --text-placeholder: #64748B;
+    --console-success: #4ADE80;
+    
+    /* Border Colors */
+    --border-primary: rgba(255, 255, 255, 0.1);
+    --border-secondary: #334155;
+    --border-button: rgba(255, 255, 255, 0.2);
+    
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(to right, #4D7C0F, #1D4ED8);
+    --gradient-reverse: linear-gradient(to right, #1D4ED8, #4D7C0F);
+    --gradient-accent: linear-gradient(to right, #4D7C0F, #1D4ED8);
+    
+    /* Shadow Colors */
+    --shadow-primary: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-secondary: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-tertiary: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    --shadow-astronaut: drop-shadow(0 10px 8px rgba(59, 130, 246, 0.25));
+    
+    /* Accent Colors */
+    --accent-blue: #38BDF8;
+    --accent-green: #4ADE80;
+  }
+  :root {
+    /* Light Mode Colors */
+    --code-editor-bg-light: #F8FAFC;
+    --panel-bg-gradient-light: linear-gradient(135deg, rgba(219, 234, 254, 0.8), rgba(209, 250, 229, 0.8));
+    --textarea-bg-light: rgba(255, 255, 255, 0.9);
+    --console-bg-light: rgba(255, 255, 255, 0.8);
+    --selector-bg-light: rgba(15, 23, 42, 0.05);
+    
+    --text-primary-light: #0F172A;
+    --text-secondary-light: #475569;
+    --text-placeholder-light: #94A3B8;
+    --console-success-light: #10B981;
+    
+    --border-primary-light: rgba(15, 23, 42, 0.1);
+    --border-secondary-light: #E2E8F0;
+    --border-button-light: rgba(15, 23, 42, 0.2);
+    
+    /* Dark Mode Colors */
+    --code-editor-bg-dark: #0F172A;
+    --panel-bg-gradient-dark: linear-gradient(135deg, rgba(30, 58, 138, 0.8), rgba(20, 83, 45, 0.8));
+    --textarea-bg-dark: rgba(15, 23, 42, 0.8);
+    --console-bg-dark: rgba(15, 23, 42, 0.7);
+    --selector-bg-dark: rgba(255, 255, 255, 0.05);
+    
+    --text-primary-dark: #E2E8F0;
+    --text-secondary-dark: #94A3B8;
+    --text-placeholder-dark: #64748B;
+    --console-success-dark: #4ADE80;
+    
+    --border-primary-dark: rgba(255, 255, 255, 0.1);
+    --border-secondary-dark: #334155;
+    --border-button-dark: rgba(255, 255, 255, 0.2);
+  
+    /* Shared Colors */
+    --gradient-primary: linear-gradient(to right, #4D7C0F, #1D4ED8);
+    --gradient-reverse: linear-gradient(to right, #1D4ED8, #4D7C0F);
+    --gradient-accent: linear-gradient(to right, #4D7C0F, #1D4ED8);
+    
+    --shadow-primary: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-secondary: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-tertiary: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    --shadow-astronaut: drop-shadow(0 10px 8px rgba(59, 130, 246, 0.25));
+    
+    --accent-blue: #38BDF8;
+    --accent-green: #4ADE80;
+  }
+  
+  .light-mode {
+    --code-editor-bg: var(--code-editor-bg-light);
+    --panel-bg-gradient: var(--panel-bg-gradient-light);
+    --textarea-bg: var(--textarea-bg-light);
+    --console-bg: var(--console-bg-light);
+    --selector-bg: var(--selector-bg-light);
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --text-placeholder: var(--text-placeholder-light);
+    --console-success: var(--console-success-light);
+    --border-primary: var(--border-primary-light);
+    --border-secondary: var(--border-secondary-light);
+    --border-button: var(--border-button-light);
+  }
+  
+  .dark-mode {
+    --code-editor-bg: var(--code-editor-bg-dark);
+    --panel-bg-gradient: var(--panel-bg-gradient-dark);
+    --textarea-bg: var(--textarea-bg-dark);
+    --console-bg: var(--console-bg-dark);
+    --selector-bg: var(--selector-bg-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --text-placeholder: var(--text-placeholder-dark);
+    --console-success: var(--console-success-dark);
+    --border-primary: var(--border-primary-dark);
+    --border-secondary: var(--border-secondary-dark);
+    --border-button: var(--border-button-dark);
+  }
+  /* Base Styles */
+.code-editor-body {
+    background-color: var(--code-editor-bg);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .code-editor-main {
+    max-width: 6xl;
+    margin: 0 auto;
+    padding: 2.5rem 1rem;
+  }
+  
+  /* Astronaut Animation */
+  .floating-astronaut-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .floating-astronaut {
+    width: 6rem;
+    animation: float 3s ease-in-out infinite;
+    filter: var(--shadow-astronaut);
+  }
+  
+  /* Editor Header */
+  .editor-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    margin-right: 1rem;
+    box-shadow: var(--shadow-secondary);
+  }
+  
+  .emoji-icon {
+    color: white;
+    font-size: 1.5rem;
+  }
+  
+  .header-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+  
+  .gradient-text {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .header-subtitle {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    transition: color 0.3s ease;
+  }
+  
+  /* Editor Panel */
+  .editor-panel {
+    background: var(--panel-bg-gradient);
+    backdrop-filter: blur(12px);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-primary);
+    padding: 1.5rem;
+    border: 1px solid var(--border-primary);
+    transition: all 0.3s ease;
+  }
+  
+  .editor-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+  }
+  
+  .code-textarea {
+    width: 100%;
+    background-color: var(--textarea-bg);
+    border: 1px solid var(--border-primary);
+    padding: 1rem;
+    font-size: 0.875rem;
+    font-family: monospace;
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    resize: none;
+    box-shadow: var(--shadow-inset);
+    transition: all 0.3s ease;
+  }
+  
+  .code-textarea:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: -2px;
+    border-color: transparent;
+  }
+  
+  .code-textarea::placeholder {
+    color: var(--text-placeholder);
+    transition: color 0.3s ease;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+  
+  .reset-button {
+    background-color: rgba(15, 23, 42, 0.1);
+    border: 1px solid var(--border-button);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .reset-button:hover {
+    background-color: rgba(15, 23, 42, 0.2);
+    color: var(--text-primary);
+  }
+  
+  .run-button {
+    background: var(--gradient-primary);
+    color: white;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-secondary);
+    transition: all 0.3s ease;
+  }
+  
+  .run-button:hover {
+    background: var(--gradient-reverse);
+  }
+  
+  /* Output Console */
+  .output-console {
+    margin-top: 1.5rem;
+  }
+  
+  .console-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+  }
+  
+  .console-output {
+    background-color: var(--console-bg);
+    border: 1px solid var(--border-secondary);
+    color: var(--console-success);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    white-space: pre-wrap;
+    height: 10rem;
+    overflow-y: auto;
+    box-shadow: var(--shadow-inset);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+  }
+  
+  .console-output.success {
+    color: var(--console-success);
+  }
+  
+  /* Language Selector */
+  .language-selector-container {
+    margin-top: 1.5rem;
+    background-color: var(--selector-bg);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-tertiary);
+    padding: 1rem;
+    border: 1px solid var(--border-primary);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+  
+  .language-selector-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+  }
+  
+  .language-selector-dropdown {
+    background: var(--panel-bg-gradient);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .language-selector-dropdown:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: -2px;
+  }
+  
+  .language-option {
+    color: var(--text-primary);
+    background-color: var(--code-editor-bg);
+  }
+  
+  /* Scrollbar Styles */
+  textarea::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Animation Keyframes */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Responsive Styles */
+  @media (min-width: 768px) {
+    .floating-astronaut {
+      width: 8rem;
+    }
+    
+    .language-selector-dropdown {
+      width: 16rem;
+    }
+  }

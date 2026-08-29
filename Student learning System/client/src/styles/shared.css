@@ -1,0 +1,36 @@
+:root {
+  /* Toggle Switch Colors */
+  --toggle-bg-light: #ccc;
+  --toggle-bg-dark: #4f46e5;
+  --toggle-thumb: white;
+  --toggle-thumb-offset: 20px;
+}
+
+.toggle-switch {
+  width: 42px;
+  height: 22px;
+  background: var(--toggle-bg-light);
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--toggle-thumb);
+  border-radius: 9999px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: all 0.3s ease;
+}
+
+.dark .toggle-switch {
+  background: var(--toggle-bg-dark);
+}
+
+.dark .toggle-thumb {
+  transform: translateX(var(--toggle-thumb-offset));
+}
