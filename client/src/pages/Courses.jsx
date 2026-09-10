@@ -4,6 +4,7 @@ import '../styles/courses-page.css';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Courses() {
 
@@ -193,9 +194,9 @@ fetchCourses()
 
                 </div>
                 <div className="course-card-actions">
-                  <button className="course-action-btn course-action-btn--view">
+                  <Link to={`/courses/${course._id}`} className="course-action-btn course-action-btn--view">
                     <i className="fas fa-eye"></i> Preview
-                  </button>
+                  </Link>
                   <button className="course-action-btn course-action-btn--enroll">
                     <i className="fas fa-bolt"></i> Enroll
                   </button>

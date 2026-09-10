@@ -25,7 +25,7 @@ export default function App() {
         <Route path="/forum" element={<Forum />} />
         <Route path="/editor" element={<CodeEditor />} />
         <Route path="/grades" element={<GradeReport />} />
-        <Route path="/content/:subjectId" element={<CourseDetail />} />
+        <Route path="/courses/:id" element={<CourseDetail />} />
         <Route path="/dashboard" element={<Dashboard />} />
        
       </Routes>

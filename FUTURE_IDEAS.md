@@ -71,3 +71,5 @@ Week 6 covers: wire AdminDashboard to courses, manage users + basic stats. Beyon
 ## Reminder for future-me
 
 The 6-week plan, fully executed, is already a complete, legitimate, defensible full-stack project. Nothing here is required to call it done. This file exists so a good idea doesn't derail the current night — write it here, keep building tonight's actual task.
+
+Implement global ProtectedRoute wrapper to enforce JWT token validation on browser history/back-button navigation.

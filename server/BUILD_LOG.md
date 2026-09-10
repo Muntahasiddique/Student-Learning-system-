@@ -51,3 +51,17 @@ Confused me: required: true + default on the same field are contradictory — re
 - Built: Courses.jsx fetches real data via axios + useEffect, replaced hardcoded fake cards with .map() over real courses
 Confused me: forgetting return inside a curly-brace arrow function passed to .map() — silently returns undefined for every item, no error thrown, just nothing renders
 Would forget in 2 weeks: setloading(false) needs to run in both the success AND catch branches, or a failed fetch leaves the UI stuck in loading state forever
+
+## N5 — Search/filter via query params
+
+- Built: getAllCourses reads req.query (search, difficulty, category, degree, price), builds a filter object conditionally. Case-insensitive matching via $regex + $options: 'i' for both partial text search (title/description via or)andexact−matchdropdownfilters(difficulty/category/degree,anchoredwith...or) and exact-match dropdown filters (difficulty/category/degree, anchored with ^... or)andexact−matchdropdownfilters(difficulty/category/degree,anchoredwith...). Price required special handling — frontend sends "Free"/"Premium" as strings, translated to real Mongo conditions ({price: 0} vs {price: {$gt: 0}}) instead of casting directly to a number.
+
+Confused me: req.query vs req.body vs req.params — took real effort to separate these (query = ?key=value in the URL, body = POST data, params = URL path segment via :id). Also wrapped a variable in an extra unnecessary object ({filter} instead of filter) when passing it to .find(), which silently created the wrong query shape.
+
+Would forget in 2 weeks: query params are always strings — a Number field in the schema needs explicit conversion/logic (not just !isNaN checks) before comparing, since "0" and 0 aren't automatically treated the same everywhere. Also: exact-match filters only need case-insensitivity if the frontend might send inconsistent casing — dropdown-driven filters usually don't need it, since the value always matches what's stored. 
+
+
+## N6 — Course Detail Page (Dynamic Routing)
+- Built: Connected the catalog preview button to a dedicated `CourseDetail.jsx` page using React Router's `<Link>`. Fetched single course data via `axios` hitting `GET /api/courses/:id` and rendered the real database content.
+- Confused me: React Router parameter mismatches. The main route was looking for `/content/:subjectId`, but the component used `useParams()` to look for `id`, and the button linked to `/courses/ID`. It completely broke the routing. Also got stuck trying to inject variables into Axios URLs because I used single quotes instead of template literal backticks (`` ` ``). 
+- Would forget in 2 weeks: `useParams()` must exactly match the placeholder defined in the `App.jsx` route (e.g., `path="/courses/:id"` means you extract `id`). Also: you *must* add an `if (!course)` guard clause before the `return` statement so React doesn't crash trying to read properties of `null` before the database responds.

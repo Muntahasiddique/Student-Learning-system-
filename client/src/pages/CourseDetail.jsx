@@ -1,8 +1,36 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/dsaDetail.css';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 export default function CourseDetail() {
+const {id } = useParams();
+const [course , setcourse] = useState(null);
+useEffect(()=>{
+  async function GetCourseDetails(){
+    try {
+      const response = await axios.get(`http://localhost:3000/api/courses/${id}`);
+      setcourse(response.data.foundcourse);
+      
+    } catch (error) {
+      console.error("Failed to find the course" , error);
+    }
+  }
+  GetCourseDetails();
+
+},[id])
+if(!course){
+  return(
+
+    <div className="course-page">
+        <h1 style={{ color: 'white', padding: '2rem' }}>Loading Course...</h1>
+      </div>
+  )
+}
+
   return (
     <div className="course-page">
       <Header />
