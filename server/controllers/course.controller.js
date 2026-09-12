@@ -102,10 +102,12 @@ return res.status(404).json({message:"Course not Found"});
     }
     
 }
+
 module.exports = {
     createCourse,
     getAllCourses,
     getCourseById,
     updateCourse,
-    deleteCourse
+    deleteCourse,
+   
 }

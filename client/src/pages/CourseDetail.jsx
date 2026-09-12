@@ -9,19 +9,30 @@ import { useEffect } from 'react';
 export default function CourseDetail() {
 const {id } = useParams();
 const [course , setcourse] = useState(null);
+const [error, setError] = useState("");
 useEffect(()=>{
   async function GetCourseDetails(){
     try {
       const response = await axios.get(`http://localhost:3000/api/courses/${id}`);
       setcourse(response.data.foundcourse);
-      
-    } catch (error) {
-      console.error("Failed to find the course" , error);
-    }
+   } catch (error) {
+  if (error.response) {
+    setError(error.response.data.message);
+  } else {
+    setError("Could not connect to server. Please try again.");
+  }
+}
   }
   GetCourseDetails();
 
 },[id])
+if (error) {
+  return (
+    <div className="course-page">
+      <h1 style={{ color: 'white', padding: '2rem' }}>{error}</h1>
+    </div>
+  );
+}
 if(!course){
   return(
 
@@ -56,8 +67,8 @@ if(!course){
 
         {/* Content Area */}
         <section className="course-content">
-          <h2 className="course-content-title">Chapter Title Here</h2>
-          <p className="course-content-intro">Learning objective introduction paragraph goes here...</p>
+          <h2 className="course-content-title">{course.title}</h2>
+          <p className="course-content-intro">{course.description}</p>
 
           {/* Materials */}
           <div className="course-materials">

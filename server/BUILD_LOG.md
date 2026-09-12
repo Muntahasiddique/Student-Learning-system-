@@ -65,3 +65,21 @@ Would forget in 2 weeks: query params are always strings — a Number field in t
 - Built: Connected the catalog preview button to a dedicated `CourseDetail.jsx` page using React Router's `<Link>`. Fetched single course data via `axios` hitting `GET /api/courses/:id` and rendered the real database content.
 - Confused me: React Router parameter mismatches. The main route was looking for `/content/:subjectId`, but the component used `useParams()` to look for `id`, and the button linked to `/courses/ID`. It completely broke the routing. Also got stuck trying to inject variables into Axios URLs because I used single quotes instead of template literal backticks (`` ` ``). 
 - Would forget in 2 weeks: `useParams()` must exactly match the placeholder defined in the `App.jsx` route (e.g., `path="/courses/:id"` means you extract `id`). Also: you *must* add an `if (!course)` guard clause before the `return` statement so React doesn't crash trying to read properties of `null` before the database responds.
+
+## Auth Middleware — verifyToken (built between Week 2 and Week 3, before Enrollment)
+- Built: server/middleware/auth.middleware.js — verifyToken reads the token from req.headers.authorization, rejects with 401 if missing, splits the "Bearer <token>" string to extract just the token, verifies it with jwt.verify(token, process.env.JWT_SECRET), attaches the decoded payload to req.user, and calls next() so the real controller runs. Catches invalid/expired tokens with a 403.
+- Confused me: the whole reason this exists at all — every request arrives at the backend as a total stranger, with no memory of who logged in. The frontend has to re-prove identity on every single request by re-sending the token (stored in localStorage) in the Authorization header. Also: why split on " " — the header arrives as one string, "Bearer <token>", and .split(" ") turns it into ["Bearer", "<token>"], so [1] grabs just the actual token, discarding the label.
+- Would forget in 2 weeks: req.user = decoded doesn't hand you the full user profile — only whatever was originally packed into the token at Login (just {id: user._id}). Any controller that needs more than the id (name, email, etc.) still has to look the user up in the database using that id. Also: middleware functions go as an extra argument in the route definition, before the controller — e.g. router.post('/enroll', verifyToken, enrollCourse) — and the order matters, since verifyToken has to run and call next() before the controller ever executes. 
+
+## Week 3
+## N1- Enrollment model (refs to user + course).
+Built: dedicated Enrollment model (user + course ObjectId refs, both required, timestamps)
+Confused me: required: true protects that one record's data integrity (can't save an incomplete enrollment), not a rule forcing user behavior — easy to mix these up
+Would forget in 2 weeks: ref must exactly match the registered model name (case-sensitive) — ref: 'User' only works if that model was registered as mongoose.model('User', ...), not 'user'
+
+### Week 3 N2 — COMPLETE (Enroll/unenroll endpoints)
+*   **Built:** `unenrollCourse` controller logic using `findOneAndDelete` and `$inc: {enrolledCount: -1}`.
+*   **Wired:** Created `server/routes/enrollment.routes.js`, imported the `verifyToken` middleware correctly using destructuring, and set up `POST /enroll/:courseId` and `DELETE /unenroll/:courseId`.
+*   **Mounted:** Added `app.use('/api', enrollmentRoutes)` in `app.js`.
+*   **Tested:** Successfully generated a JWT via the login route, passed it as a Bearer token in Thunder Client, and verified that both enrolling (201), the duplicate guard clause (400), and unenrolling (200) work flawlessly.
+*   **Next Up (Whenever ready):** N3 — Wire the enroll button on `CourseDetail.jsx` on the React frontend.

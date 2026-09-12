@@ -13,9 +13,13 @@ app.use(express.urlencoded({extended:true}));
 
 const authRoutes = require('./routes/auth.routes');
 const courseRoutes = require('./routes/course.routes')
+const enrollmentRoutes = require('./routes/enrollment.routes')
 
 app.use('/api/auth' , authRoutes);
 app.use('/api' , courseRoutes);
+app.use('/api' ,enrollmentRoutes);
+
+
 
 app.get('/api/health' , (req ,res) =>{
 res.json({status:"ok"});
@@ -24,7 +28,7 @@ res.json({status:"ok"});
 
 mongoose.connect(MONGO_URI).then(()=>{
  app.listen(PORT ,()=>{
-  console.log("Server is RUNNING")
+  console.log("Server is RUNNING...."+ PORT)
 })
 }).catch((error)=>{
   console.log("Error Occured" , error);
