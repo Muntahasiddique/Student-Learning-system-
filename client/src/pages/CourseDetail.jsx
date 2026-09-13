@@ -26,6 +26,25 @@ useEffect(()=>{
   GetCourseDetails();
 
 },[id])
+
+async function handleEnroll() {
+  const token = localStorage.getItem('authtoken');
+  if (!token) {
+  alert("Please log in to enroll");
+  return;
+}
+try {
+  await axios.post(`http://localhost:3000/api/enroll/${id}`,{},{headers:{Authorization: "Bearer " + token}});
+  alert("Successfully enrolled!");
+} catch (error) {
+  if (error.response) {
+    alert(error.response.data.message);
+  } else {
+    alert("Could not connect to server. Please try again.");
+  }
+}
+}
+
 if (error) {
   return (
     <div className="course-page">
@@ -41,6 +60,7 @@ if(!course){
       </div>
   )
 }
+
 
   return (
     <div className="course-page">
@@ -69,6 +89,9 @@ if(!course){
         <section className="course-content">
           <h2 className="course-content-title">{course.title}</h2>
           <p className="course-content-intro">{course.description}</p>
+           <button className="course-action-btn course-action-btn--enroll" onClick={handleEnroll} >
+                    <i className="fas fa-bolt"></i> Enroll
+                  </button>
 
           {/* Materials */}
           <div className="course-materials">

@@ -77,9 +77,15 @@ Built: dedicated Enrollment model (user + course ObjectId refs, both required, t
 Confused me: required: true protects that one record's data integrity (can't save an incomplete enrollment), not a rule forcing user behavior — easy to mix these up
 Would forget in 2 weeks: ref must exactly match the registered model name (case-sensitive) — ref: 'User' only works if that model was registered as mongoose.model('User', ...), not 'user'
 
-### Week 3 N2 — COMPLETE (Enroll/unenroll endpoints)
+### Week 3 
+## N2 — COMPLETE (Enroll/unenroll endpoints)
 *   **Built:** `unenrollCourse` controller logic using `findOneAndDelete` and `$inc: {enrolledCount: -1}`.
 *   **Wired:** Created `server/routes/enrollment.routes.js`, imported the `verifyToken` middleware correctly using destructuring, and set up `POST /enroll/:courseId` and `DELETE /unenroll/:courseId`.
 *   **Mounted:** Added `app.use('/api', enrollmentRoutes)` in `app.js`.
 *   **Tested:** Successfully generated a JWT via the login route, passed it as a Bearer token in Thunder Client, and verified that both enrolling (201), the duplicate guard clause (400), and unenrolling (200) work flawlessly.
 *   **Next Up (Whenever ready):** N3 — Wire the enroll button on `CourseDetail.jsx` on the React frontend.
+
+## N3 — Wire enroll button on CourseDetail.jsx
+- Built: handleEnroll — gets token from localStorage, guards if missing, sends axios.post to /api/enroll/:courseId with empty body and Bearer token in headers, alerts on success/failure.
+- Confused me: why the second axios.post argument is an empty {} — it's a placeholder to keep the headers config in the correct third argument position, since this request has no actual data to send (backend already knows who/which course from the token + URL).
+- Would forget in 2 weeks: full request flow — token retrieved client-side → sent in Authorization header → verifyToken middleware runs first on the backend route, validates it, attaches req.user.id → only then does the actual controller (enrollCourse) run. Confirmed working end-to-end: real 400 "Already enrolled" on a duplicate attempt.

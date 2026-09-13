@@ -197,9 +197,7 @@ fetchCourses()
                   <Link to={`/courses/${course._id}`} className="course-action-btn course-action-btn--view">
                     <i className="fas fa-eye"></i> Preview
                   </Link>
-                  <button className="course-action-btn course-action-btn--enroll">
-                    <i className="fas fa-bolt"></i> Enroll
-                  </button>
+                 
                 </div>
                 <a href="#" className="course-card-link">
                   <i className="fas fa-download"></i> Syllabus
