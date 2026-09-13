@@ -1,0 +1,51 @@
+.mycourses-page {
+  background-color: #0f172a;
+  color: white;
+  min-height: 100vh;
+}
+
+.mycourses-wrapper {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.mycourses-title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.mycourses-subtitle {
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.mycourses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.mycourses-card {
+  background: rgba(30,41,59,0.8);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.mycourses-unenroll-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+.mycourses-empty {
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  grid-column: 1 / -1;
+}

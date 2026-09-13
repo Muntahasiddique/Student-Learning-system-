@@ -1,7 +1,5 @@
 const enrollmentModel = require('../models/enrollment.model');
 const courseModel = require('../models/course.model');
-const userModel = require('../models/user.model');
-
 const enrollCourse =  async (req ,res)=>{
 try {
     const userId = req.user.id;
@@ -36,9 +34,26 @@ return res.status(200).json({ message: "Successfully unenrolled in the course!" 
     return res.status(500).json({message :"Course not unenrolled Database Error"});
 }
 }
+
+const getMyEnrollments = async (req , res)=>{
+try {
+        const userId = req.user.id;
+        const myEnrolledcourses = await enrollmentModel.find({ user: userId }).populate('course');
+       if (myEnrolledcourses.length === 0) {
+  return res.status(200).json({ message: "Not enrolled in Any course", myEnrolledcourses: [] });
+}
+
+                return res.status(200).json({myEnrolledcourses:myEnrolledcourses})
+} catch (error) {
+     console.error(error);
+    return res.status(500).json({message :"Any Course not Found Database Error"});
+}
+
+}
 module.exports = {
  enrollCourse,
- unenrollCourse
+ unenrollCourse,
+ getMyEnrollments
    
 }
 

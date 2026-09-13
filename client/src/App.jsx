@@ -11,6 +11,7 @@ import CodeEditor from './pages/CodeEditor';
 import GradeReport from './pages/GradeReport';
 import CourseDetail from './pages/CourseDetail';
 import Dashboard from './pages/Dashboard';
+import MyCourses from './pages/MyCourses';
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/grades" element={<GradeReport />} />
         <Route path="/courses/:id" element={<CourseDetail />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/my-courses" element={<MyCourses />} />
        
       </Routes>
     </Router>

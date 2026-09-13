@@ -89,3 +89,9 @@ Would forget in 2 weeks: ref must exactly match the registered model name (case-
 - Built: handleEnroll — gets token from localStorage, guards if missing, sends axios.post to /api/enroll/:courseId with empty body and Bearer token in headers, alerts on success/failure.
 - Confused me: why the second axios.post argument is an empty {} — it's a placeholder to keep the headers config in the correct third argument position, since this request has no actual data to send (backend already knows who/which course from the token + URL).
 - Would forget in 2 weeks: full request flow — token retrieved client-side → sent in Authorization header → verifyToken middleware runs first on the backend route, validates it, attaches req.user.id → only then does the actual controller (enrollCourse) run. Confirmed working end-to-end: real 400 "Already enrolled" on a duplicate attempt.
+
+###  N4 — COMPLETE (My Enrolled Courses Page)
+*   **Built:** Created `client/src/pages/MyCourses.jsx` to fetch and display the user's enrolled courses.
+*   **State Management:** Implemented `useEffect` to fetch data on mount using `axios.get` with the JWT Bearer token in the headers.
+*   **Unenroll Logic:** Wrote `handleUnenroll` using `axios.delete`. Implemented immediate UI updates by utilizing `.filter()` on the `enrolledcourses` state to remove the deleted course instantly without a page reload.
+*   **Pending/UX Note:** The page is currently orphaned. Needs a navigation link added to `Header.jsx` or the Dashboard.
