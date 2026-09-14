@@ -5,6 +5,7 @@ export default function Header() {
   const toggleDarkMode = () => {
     console.log("Dark mode toggled! You will need to build React state for this later.");
   };
+  const token = localStorage.getItem('authtoken');
 
   return (
     <header className="header">
@@ -30,7 +31,7 @@ export default function Header() {
         </button>
 
         {/* Desktop Navigation (hidden on mobile) */}
-        <nav className="header__nav">
+       <nav className="header__nav">
           <Link to="/" className="header__nav-link">
             <i className="fas fa-home"></i> <span className="nav-text">Home</span>
             <span className="header__nav-underline"></span>
@@ -43,6 +44,15 @@ export default function Header() {
             <i className="fas fa-book-open"></i> <span className="nav-text">Courses</span>
             <span className="header__nav-underline"></span>
           </Link>
+          
+          {/* PROFESSIONAL CONDITIONAL RENDERING */}
+          {token && (
+            <Link to="/my-courses" className="header__nav-link">
+              <i className="fas fa-laptop-code"></i> <span className="nav-text">My Courses</span>
+              <span className="header__nav-underline"></span>
+            </Link>
+          )}
+
           <Link to="/forum" className="header__nav-link">
             <i className="fas fa-comments"></i> <span className="nav-text">Forum</span>
             <span className="header__nav-underline"></span>
@@ -54,23 +64,36 @@ export default function Header() {
         </nav>
 
         {/* Desktop Actions (hidden on mobile) */}
-        <div className="header__actions">
+       <div className="header__actions">
           {/* Theme Toggle */}
           <div className="header__theme-toggle" onClick={toggleDarkMode}>
             <div className="header__theme-thumb"><i className="fas fa-moon" id="moon"></i></div>
           </div>
 
-          {/* Login */}
-          <Link to="/login" className="header__login">
-            <i className="fas fa-sign-in-alt"></i> <span className="login-text">Log In</span>
-          </Link>
-
-          {/* Sign Up */}
-          <Link to="/signup" className="header__signup">
-            <span className="header__signup-glow"></span>
-            <span className="header__signup-text">Sign Up Free</span>
-            <i className="fas fa-arrow-right"></i>
-          </Link>
+          {/* CONDITIONAL LOGIN / LOGOUT */}
+          {token ? (
+            <button 
+              className="header__login" 
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+              onClick={() => {
+                localStorage.removeItem('authtoken');
+                window.location.href = '/login'; // Force redirect and clear state
+              }}
+            >
+              <i className="fas fa-sign-out-alt"></i> <span className="login-text">Log Out</span>
+            </button>
+          ) : (
+            <>
+              <Link to="/login" className="header__login">
+                <i className="fas fa-sign-in-alt"></i> <span className="login-text">Log In</span>
+              </Link>
+              <Link to="/signup" className="header__signup">
+                <span className="header__signup-glow"></span>
+                <span className="header__signup-text">Sign Up Free</span>
+                <i className="fas fa-arrow-right"></i>
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
