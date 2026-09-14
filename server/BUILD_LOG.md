@@ -96,3 +96,7 @@ Would forget in 2 weeks: ref must exactly match the registered model name (case-
 *   **Unenroll Logic:** Wrote `handleUnenroll` using `axios.delete`. Implemented immediate UI updates by utilizing `.filter()` on the `enrolledcourses` state to remove the deleted course instantly without a page reload.
 *   **Pending/UX Note:** The page is currently orphaned. Needs a navigation link added to `Header.jsx` or the Dashboard.
 *   **UX Polish:** Updated `Header.jsx` with conditional rendering (`{token && ...}`). The "My Courses" link and the "Log Out" button now only appear for authenticated users, while appropriately hiding the "Log In/Sign Up" buttons. Applied identical logic to the mobile navigation menu.
+## N5 *   **Dashboard Polish & Debugging:** 
+    *   Extracted all inline React styles into a dedicated `dashboard.css` file for clean separation of concerns.
+    *   Resolved a nested object rendering crash by mapping the correct Mongoose `.populate()` path (`enrollment.course.title`).
+    *   Implemented `array.slice(0, 3)` to professionally restrict the recent courses UI and prevent infinite scrolling on the dashboard.

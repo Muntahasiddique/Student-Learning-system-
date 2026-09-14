@@ -73,3 +73,7 @@ Week 6 covers: wire AdminDashboard to courses, manage users + basic stats. Beyon
 The 6-week plan, fully executed, is already a complete, legitimate, defensible full-stack project. Nothing here is required to call it done. This file exists so a good idea doesn't derail the current night — write it here, keep building tonight's actual task.
 
 Implement global ProtectedRoute wrapper to enforce JWT token validation on browser history/back-button navigation.
+
+### Future Build / Next Steps (Week 4)
+*   **Dynamic Stat Cards:** The "Grades" and "Degree Progress" cards on the Dashboard are currently hardcoded to `--`. Need to build backend logic to calculate and fetch these metrics.
+*   **Course Player/Viewer:** Need a UI for the user to actually click "Go to course" and watch the videos or read the materials for the courses they are enrolled in.
