@@ -100,3 +100,9 @@ Would forget in 2 weeks: ref must exactly match the registered model name (case-
     *   Extracted all inline React styles into a dedicated `dashboard.css` file for clean separation of concerns.
     *   Resolved a nested object rendering crash by mapping the correct Mongoose `.populate()` path (`enrollment.course.title`).
     *   Implemented `array.slice(0, 3)` to professionally restrict the recent courses UI and prevent infinite scrolling on the dashboard.
+
+### Week 4 
+**N1 - Grade Model (Complete)**
+*   Created `grade.model.js` from scratch.
+*   Successfully structured relational data linking `User` (student) and `Course`.
+*   Added numerical `score`, string `letterGrade`, and `assessmentName` to track specific assignments.
