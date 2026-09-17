@@ -14,10 +14,12 @@ app.use(express.urlencoded({extended:true}));
 const authRoutes = require('./routes/auth.routes');
 const courseRoutes = require('./routes/course.routes')
 const enrollmentRoutes = require('./routes/enrollment.routes');
+const gradeRoutes = require('./routes/report.routes');
 
 app.use('/api/auth' , authRoutes);
 app.use('/api' , courseRoutes);
 app.use('/api' ,enrollmentRoutes);
+app.use('/api/grades', gradeRoutes);
 
 
 

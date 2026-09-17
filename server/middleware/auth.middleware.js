@@ -15,4 +15,15 @@ const verifyToken = (req ,res,next )=>{
     }
    
 }
-module.exports = {verifyToken};
+const verifyAdmin = (req, res, next) => {
+    if(!req.user){
+        return res.status(400).json({ message: "Invalid Token" });
+
+    }
+if(req.user.role && req.user.role.toLowerCase() === 'teacher'){
+        return next(); 
+    }
+        return res.status(403).json({ message: "Access Denied" });
+
+ }
+module.exports = {verifyToken,verifyAdmin};

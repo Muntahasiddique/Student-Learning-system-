@@ -77,3 +77,8 @@ Implement global ProtectedRoute wrapper to enforce JWT token validation on brows
 ### Future Build / Next Steps (Week 4)
 *   **Dynamic Stat Cards:** The "Grades" and "Degree Progress" cards on the Dashboard are currently hardcoded to `--`. Need to build backend logic to calculate and fetch these metrics.
 *   **Course Player/Viewer:** Need a UI for the user to actually click "Go to course" and watch the videos or read the materials for the courses they are enrolled in.
+
+### Future Build / Next Steps (Post-Week 4 N2)
+* **Expand the RBAC Lock:** The `verifyAdmin` middleware (checking `req.user.role`) was successfully built and applied to the Grades API. This lock now needs to be retroactively applied to the `POST`, `PUT`, and `DELETE` routes for Courses so students cannot manipulate course data.
+* **Teacher Grade-Entry UI:** The backend `POST /api/grades/report` route is fully secure and functional, but currently only tested via Postman. The Admin/Teacher micro-frontend (running on port 5174) needs a dedicated React form where a teacher can select a student, select a course, and submit the grade payload. 
+* **Micro-Frontend Auth Sharing:** Currently, the client app passes the user to the admin app via a hard redirect. In a production environment with different subdomains (e.g., `app.domain.com` and `admin.domain.com`), `localStorage` will not be shared across those boundaries. Will eventually need to migrate the JWT to an `httpOnly` secure cookie so auth state persists seamlessly between the separated Vite applications.

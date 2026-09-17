@@ -49,11 +49,13 @@ const Login = async (req , res)=>{
        return res.status(400).json({message :"Invalid Credentials"});
     }
       const jwttoken = Jwt.sign(
-        {id :User._id},
+        {id :User._id,
+            role: User.role
+        },
         process.env.JWT_SECRET || 'fallback_secret_key',
         {expiresIn: '1d'}
      );
-    return res.status(200).json({message : "Login Successfully" , token : jwttoken})
+    return res.status(200).json({message : "Login Successfully" , token : jwttoken, role: User.role})
    
     } catch (error) {
         console.error("Login Database Error" , error)

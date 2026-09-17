@@ -1,17 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AdminDashboard from '../../admin/src/Pages/AdminDashboard';
+import AdminDashboard from './Pages/AdminDashboard'; // Fixed relative path
+
 function App() {
-
-
   return (
-    <>
-     <Router>
+    <Router>
       <Routes>
- <Route path="/admin" element={<AdminDashboard />} />
- </Routes>
- </Router>
-    </>
+        {/* Changed path to root so it catches the redirect from port 5173 */}
+        <Route path="/" element={<AdminDashboard />} /> 
+      </Routes>
+    </Router>
   )
 }
 
-export default App
+export default App;

@@ -16,21 +16,27 @@ async function handleSubmit(e){
 e.preventDefault();
 setErrorMsg("");
 setSuccessMsg("");
-
 try {
-  const response = await axios.post("http://localhost:3000/api/auth/login" ,{
+  const response = await axios.post("http://localhost:3000/api/auth/login", {
     email,
     password,
-  } )
-  if(response.data.token){
-    const token = response.data.token;
-    localStorage.setItem('authtoken' , token)
-  }
+  });
 
-setSuccessMsg("Login Successully");
-navigate('/dashboard');
-   
-  
+  if (response.data.token) {
+    const token = response.data.token;
+    const role = response.data.role; 
+    
+    localStorage.setItem('authtoken', token);
+    localStorage.setItem('userRole', role);
+
+    setSuccessMsg("Login Successfully");
+
+  if (role.toLowerCase() === 'teacher' || role.toLowerCase() === 'admin') {
+    window.location.href = 'http://localhost:5174';
+} else {
+    navigate('/dashboard'); 
+}
+  }
 } catch (error) {
   if (error.response) {
     setErrorMsg(error.response.data.message);
