@@ -50,6 +50,7 @@ const courseSchema = new mongoose.Schema(
 
       trim: true,
     },
+    credits: { type: Number, required: true, default: 3 },
   },
   { timestamps: true },
 );
