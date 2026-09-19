@@ -90,3 +90,6 @@ Implement global ProtectedRoute wrapper to enforce JWT token validation on brows
 
 * **Link Routing:** Update the `to="#"` placeholders on the Home page to point to `/ai` and `/forum` once the Week 5 community and AI components are built.
 * **Mobile Gestures:** The hero carousel and feature cards cycle on a timer, but adding a library like `react-swipeable` would allow mobile users to manually swipe through the cards instead of waiting for the timer.
+
+* **Secure Upvoting:** Build a `PUT /api/forum/:id/upvote` route. It must completely ignore the request body and strictly increment the database upvote integer by exactly `+1` on the server side to prevent client manipulation.
+* **Teacher Moderation:** Create `DELETE` endpoints for threads and replies that specifically utilize the `verifyAdmin` middleware, allowing faculty to remove inappropriate content without giving regular students deletion power.
