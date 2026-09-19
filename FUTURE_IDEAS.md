@@ -87,3 +87,6 @@ Implement global ProtectedRoute wrapper to enforce JWT token validation on brows
 
 * **Dynamic Course Credits UI:** The backend schema was upgraded to support variable `credits` per course (defaulting to 3). The Admin "Create Course" UI needs a dedicated number input field so teachers can officially assign 1-credit labs or 4-credit core classes, making the GPA math 100% accurate.
 * **Data Visualization:** The Degree dashboard currently uses raw text numbers for GPA and Credits. Upgrade the UI by adding SVG progress rings or a Chart.js bar chart to visually map out how close the student is to the 120-credit graduation requirement.
+
+* **Link Routing:** Update the `to="#"` placeholders on the Home page to point to `/ai` and `/forum` once the Week 5 community and AI components are built.
+* **Mobile Gestures:** The hero carousel and feature cards cycle on a timer, but adding a library like `react-swipeable` would allow mobile users to manually swipe through the cards instead of waiting for the timer.

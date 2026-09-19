@@ -1,7 +1,32 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/home.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 export default function Home() {
+  const carouselImages = [
+    "/images/undraw_online-learning_tgmv.svg",
+    "/images/undraw_books_wxzz.svg",
+    "/images/undraw_notebook_8ihb.svg"
+  ];
+  
+  const labIcons = [
+    "/images/undraw_conceptual-idea_cc76.svg", 
+    "/images/undraw_os-upgrade_d200.svg", 
+    "/images/undraw_maintenance_rjtm.svg"
+  ];
+
+  // ONLY ONE STATE TRACKER NEEDED
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % 3);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="home-page">
       <Header />
@@ -9,14 +34,12 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section className="home-hero">
-          {/* Glow Animation */}
           <div className="home-hero-glow">
             <div className="home-hero-glow-circle home-hero-glow-circle--left"></div>
             <div className="home-hero-glow-circle home-hero-glow-circle--right"></div>
           </div>
         
           <div className="home-hero-content">
-            {/* Text Content */}
             <div className="home-hero-text">
               <h2 className="home-hero-title">
                 Unlock Your Potential<br />
@@ -26,21 +49,26 @@ export default function Home() {
                 Learn smarter, not harder. Explore interactive labs, AI-powered tools, and peer collaboration – all in one place.
               </p>
               <div className="home-hero-buttons">
-                <a href="/signup" className="home-hero-primary-button">Get Started for Free</a>
-                <a href="/courses" className="home-hero-secondary-button">Explore Courses</a>
+                <Link to="/signup" className="home-hero-primary-button">Get Started for Free</Link>
+                <Link to="/courses" className="home-hero-secondary-button">Explore Courses</Link>
               </div>
             </div>
         
-            {/* Image */}
+            {/* HERO IMAGE WIRED TO CURRENT INDEX */}
             <div className="home-hero-image-container">
-              <img id="hero-carousel-img" src="/images/undraw_online-learning_tgmv.svg" alt="Learning Illustration" className="home-hero-image" />
+              <img 
+                id="hero-carousel-img" 
+                src={carouselImages[currentIndex]} 
+                alt="Learning Illustration" 
+                className="home-hero-image" 
+                style={{ transition: 'all 0.5s ease-in-out' }} 
+              />
             </div>
           </div>
         </section>
         
         {/* Features Section */}
         <section className="home-features">
-          {/* Glows */}
           <div className="home-features-glow">
             <div className="home-features-glow-circle home-features-glow-circle--left"></div>
             <div className="home-features-glow-circle home-features-glow-circle--right"></div>
@@ -52,33 +80,33 @@ export default function Home() {
             </h2>
         
             <div id="featureCards" className="home-features-cards">
-              {/* Hands-on Labs Card */}
-              <div className="home-feature-card home-feature-card--active">
+              {/* Card 0: Hands-on Labs */}
+              <div className={`home-feature-card ${currentIndex === 0 ? 'home-feature-card--active' : ''}`}>
                 <div className="home-feature-card-content">
-                  <img src="/images/undraw_conceptual-idea_cc76.svg" alt="Labs" className="home-feature-card-icon" />
+                  <img src={labIcons[currentIndex]} alt="Interactive Labs" className="home-feature-card-icon" />
                   <h3 className="home-feature-card-title">Hands-on Labs</h3>
                   <p className="home-feature-card-description">Practice coding with integrated Jupyter Labs and interactive code playgrounds tailored for learners.</p>
-                  <a href="/editor" className="home-feature-card-button">Try Labs</a>
+                  <Link to="/editor" className="home-feature-card-button">Try Labs</Link>
                 </div>
               </div>
         
-              {/* AI Assistance Card */}
-              <div className="home-feature-card">
+              {/* Card 1: AI Assistance */}
+              <div className={`home-feature-card ${currentIndex === 1 ? 'home-feature-card--active' : ''}`}>
                 <div className="home-feature-card-content">
-                  <img src="/images/undraw_chat-bot_44el.svg" alt="AI Assistance" className="home-feature-card-icon" />
+                  <img src={labIcons[currentIndex]} alt="AI Assistance" className="home-feature-card-icon" />
                   <h3 className="home-feature-card-title">AI Assistance</h3>
                   <p className="home-feature-card-description">Get instant help from built-in AI tutors and chat-based learning bots, available anytime.</p>
-                  <a href="#" className="home-feature-card-button">Meet the AI</a>
+                  <Link to="#" className="home-feature-card-button">Meet the AI</Link>
                 </div>
               </div>
         
-              {/* Peer Learning Card */}
-              <div className="home-feature-card">
+              {/* Card 2: Peer Learning */}
+              <div className={`home-feature-card ${currentIndex === 2 ? 'home-feature-card--active' : ''}`}>
                 <div className="home-feature-card-content">
-                  <img src="/images/undraw_notebook_8ihb.svg" alt="Peer Learning" className="home-feature-card-icon" />
+                  <img src={labIcons[currentIndex]} alt="Peer Learning" className="home-feature-card-icon" />
                   <h3 className="home-feature-card-title">Peer Learning</h3>
                   <p className="home-feature-card-description">Join forums, collaborate on projects, and review assignments with your peers.</p>
-                  <a href="#" className="home-feature-card-button">Join Peers</a>
+                  <Link to="#" className="home-feature-card-button">Join Peers</Link>
                 </div>
               </div>
             </div>
@@ -87,7 +115,6 @@ export default function Home() {
         
         {/* Testimonials Section */}
         <section className="home-testimonials">
-          {/* Background Glow Effects */}
           <div className="home-testimonials-glow">
             <div className="home-testimonials-glow-circle home-testimonials-glow-circle--left"></div>
             <div className="home-testimonials-glow-circle home-testimonials-glow-circle--right"></div>

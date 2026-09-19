@@ -593,4 +593,31 @@
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  
+  @keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+/* Apply it to the SVG image to make it hover */
+.home-hero-image {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Apply it to your glow circles */
+.home-hero-glow-circle {
+  animation: float 8s ease-in-out infinite alternate;
+}
+.home-feature-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.home-feature-card-icon {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  display: block;
+}
