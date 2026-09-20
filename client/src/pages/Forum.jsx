@@ -4,6 +4,7 @@ import '../styles/forum.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Forum() {
   const [threads ,setthreads] =useState([]);
@@ -120,12 +121,15 @@ return  <div className="forum-thread" key={thread._id} >
               <div>
                 <h3 className="forum-thread-title">
                   <span className="forum-thread-icon">🌳</span>
-                  {thread.title}
+                  <Link to={`/forum/${thread._id}`} style={{color: 'inherit', textDecoration: 'none'}}>
+                   {thread.title}
+                  </Link>
+                 
                 </h3>
                 <div className="forum-thread-meta">
                   <span>Posted by <span className="forum-thread-author">{thread.author?.name || 'Unknown User'}</span></span>
                   <span>·</span>
-                  <span> {new Date(thread.CreatedAt).toLocaleDateString()}</span>
+                  <span> {new Date(thread.createdAt).toLocaleDateString()}</span>
                   <span>·</span>
                   <span>5 replies</span>
                 </div>

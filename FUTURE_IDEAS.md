@@ -96,3 +96,6 @@ Implement global ProtectedRoute wrapper to enforce JWT token validation on brows
 
 * **Thread Detail View (N5):** Create `ThreadDetail.jsx` and map it to `/forum/:id` using `react-router-dom`. Fetch the parent thread and child replies simultaneously, and build the nested comment submission form.
 * **Routing Link:** Turn the "💬 Reply" button on the main forum feed into a React Router `<Link>` that navigates the user to the specific thread page.
+
+* **Pagination (N6):** The main feed will crash the browser if it tries to load 10,000 posts at once. Implement a `?page=1&limit=10` query string on the backend and wire up the frontend pagination buttons.
+* **Empty States (N6):** Add a polished "No posts found" graphic or message if a category filter returns zero results.

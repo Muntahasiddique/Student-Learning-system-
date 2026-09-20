@@ -145,3 +145,9 @@ Would forget in 2 weeks: ref must exactly match the registered model name (case-
     1. Local storage keys are strictly case-sensitive (`authtoken` vs `AuthToken`). 
     2. React state remembers errors. If you call `setError("Failed")`, you must explicitly call `setError(null)` on the next button click, or the ghost error stays on the screen forever even if the API call succeeds.
     3. Never send an Axios request to port 3000 (React frontend) when the Express server lives on port 5000.
+
+## Week 5 — Thread Detail & Replies (N5)
+* **Built (React Router):** Implemented `useParams` to capture the dynamic `:id` from the `/forum/:id` URL. 
+* **Built (Data Fetching):** Sent a GET request to the backend to simultaneously retrieve the parent thread object and the array of child replies. 
+* **Built (UI Integration):** Mapped the replies array to the UI and wired up a controlled form to submit new comments via a protected POST request. Instantly triggered a silent re-fetch to render new comments without page reloads.
+* **What I'd forget in 2 weeks:** Axios requests require backticks (\`) for string interpolation (`${id}`), not single quotes. If you send a request to port `3000` instead of `5000`, the frontend will silently fail because the Express server isn't listening there.

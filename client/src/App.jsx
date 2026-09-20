@@ -12,6 +12,7 @@ import GradeReport from './pages/GradeReport';
 import CourseDetail from './pages/CourseDetail';
 import Dashboard from './pages/Dashboard';
 import MyCourses from './pages/MyCourses';
+import ThreadDetail from './pages/ThreadDetail';
 
 
 export default function App() {
@@ -29,6 +30,9 @@ export default function App() {
         <Route path="/courses/:id" element={<CourseDetail />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/my-courses" element={<MyCourses />} />
+        <Route path="/forum/:id" element={<ThreadDetail />} />
+
+
        
       </Routes>
     </Router>
