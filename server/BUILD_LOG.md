@@ -137,3 +137,11 @@ Would forget in 2 weeks: ref must exactly match the registered model name (case-
 * **Built (API):** Separated routing logic from database logic. Wrote `forum.controller.js` containing `createThread`, `getAllThreads`, `getThreadById`, and `addReply`, and mapped them in `forum.routes.js`. 
 * **Security & Auth:** Removed `author` and `upvotes` from client `req.body` to prevent spoofing and manipulation. Applied `verifyToken` to all `POST` routes, ensuring `req.user.id` is securely extracted from the login token. Intentionally avoided `verifyAdmin` on write routes so both students and teachers can actively post and reply.
 * **Would forget in 2 weeks:** To render a full discussion page on the frontend, `getThreadById` must execute two separate database queries—one for the parent Thread, and one for all Replies matching that `threadId`—and package them into a single JSON response.
+## Week 5 — Forum Frontend Integration (N4)
+* **Built (React State):** Wired up `Forum.jsx` to the Express backend. Replaced hardcoded HTML mockups with dynamic `.map()` rendering tied to a `threads` state array.
+* **Built (Data Fetching):** Implemented an on-mount `useEffect` to fetch the main feed (GET) and a `handleCreateThreads` function to post new discussions (POST) and instantly trigger a silent re-fetch to update the UI.
+* **Security & Auth:** Extracted the JWT from `localStorage` and correctly passed it in the `Authorization: Bearer <token>` header to bypass the backend `verifyToken` middleware.
+* **What I'd forget in 2 weeks:** 
+    1. Local storage keys are strictly case-sensitive (`authtoken` vs `AuthToken`). 
+    2. React state remembers errors. If you call `setError("Failed")`, you must explicitly call `setError(null)` on the next button click, or the ghost error stays on the screen forever even if the API call succeeds.
+    3. Never send an Axios request to port 3000 (React frontend) when the Express server lives on port 5000.

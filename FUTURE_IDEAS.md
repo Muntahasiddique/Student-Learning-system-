@@ -93,3 +93,6 @@ Implement global ProtectedRoute wrapper to enforce JWT token validation on brows
 
 * **Secure Upvoting:** Build a `PUT /api/forum/:id/upvote` route. It must completely ignore the request body and strictly increment the database upvote integer by exactly `+1` on the server side to prevent client manipulation.
 * **Teacher Moderation:** Create `DELETE` endpoints for threads and replies that specifically utilize the `verifyAdmin` middleware, allowing faculty to remove inappropriate content without giving regular students deletion power.
+
+* **Thread Detail View (N5):** Create `ThreadDetail.jsx` and map it to `/forum/:id` using `react-router-dom`. Fetch the parent thread and child replies simultaneously, and build the nested comment submission form.
+* **Routing Link:** Turn the "💬 Reply" button on the main forum feed into a React Router `<Link>` that navigates the user to the specific thread page.
