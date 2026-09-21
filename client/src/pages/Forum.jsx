@@ -13,15 +13,15 @@ export default function Forum() {
 
             const [error ,seterror] =useState(null);
                         const [loading ,setloading] =useState(null);
+        const [page , setPage] =  useState(1);
+        const [totalPages, setTotalPages] = useState(1);
 
 useEffect(()=>{
  async function fetchThreads() {
   try {
-    const Threadresponse = await axios.get('http://localhost:3000/api/forum');
-    if(!Threadresponse){
-      return res.json
-    }
+    const Threadresponse = await axios.get(`http://localhost:3000/api/forum?page=${page}&limit=10`);
     setthreads(Threadresponse.data.getThreads);
+    setTotalPages(Threadresponse.data.totalnopages);
     setloading(false);
   } catch (error) {
     if (error.response) {
@@ -33,7 +33,7 @@ useEffect(()=>{
   }
 }
 fetchThreads();
-},[])
+},[page])
 
 const handleCreateThreads = async (e)=>{
 e.preventDefault();
@@ -140,7 +140,7 @@ return  <div className="forum-thread" key={thread._id} >
              {thread.content}
             </p>
             <div className="forum-thread-actions">
-              <button className="forum-thread-action">💬 Reply</button>
+<Link className="forum-thread-action" to={`/forum/${thread._id}`}>💬 Reply</Link>
               <button className="forum-thread-action">{thread.upvote || 0}</button>
               <button className="forum-thread-action">🔖 Save</button>
             </div>
@@ -151,12 +151,9 @@ return  <div className="forum-thread" key={thread._id} >
         {/* Pagination */}
         <div className="forum-pagination">
           <div className="forum-pagination-container">
-            <div className="forum-pagination-button">←</div>
-            <div className="forum-pagination-button">1</div>
-            <div className="forum-pagination-current">2</div>
-            <div className="forum-pagination-button">3</div>
-            <div className="forum-pagination-button">4</div>
-            <div className="forum-pagination-button">→</div>
+            <button className="forum-pagination-button" onClick={()=>setPage (page - 1)} disabled ={page == 1} style={{ cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.5 : 1 }} >← prev</button>
+            <div className="forum-pagination-current"> page {page} of {totalPages}</div>
+            <button className="forum-pagination-button" onClick={()=>setPage(page + 1)} disabled = {page >= totalPages || totalPages == 0} style={{ cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.5 : 1 }} >→ Next</button>
           </div>
         </div>
       </main>

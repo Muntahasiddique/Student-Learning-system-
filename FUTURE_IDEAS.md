@@ -99,3 +99,32 @@ Implement global ProtectedRoute wrapper to enforce JWT token validation on brows
 
 * **Pagination (N6):** The main feed will crash the browser if it tries to load 10,000 posts at once. Implement a `?page=1&limit=10` query string on the backend and wire up the frontend pagination buttons.
 * **Empty States (N6):** Add a polished "No posts found" graphic or message if a category filter returns zero results.
+
+# Future Features & Backlog
+
+This document tracks features that are outside the scope of the core 6-week MERN rebuild. These will be implemented only after the foundational application (Auth, Courses, Dashboard, Grades, Degree, Forum, Admin, Code Editor) is 100% complete and deployed.
+
+## 1. Dynamic Reply Counts on Forum Feed
+* **Current State:** Hardcoded `<span>5 replies</span>` in `Forum.jsx`.
+* **Backend Fix:** Update the `getAllThreads` controller in `forum.controller.js`. Use a MongoDB `$lookup` aggregation pipeline, or a Mongoose virtual field, to count the number of replies associated with each thread ID before sending the JSON response.
+* **Frontend Fix:** Bind `{thread.replyCount || 0} replies` in the JSX mapping.
+
+## 2. Forum Voting System (Upvotes/Downvotes)
+* **Current State:** The "👍 Vote" button is static and does not track who clicked it.
+* **Database Schema Update:** Add an `upvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]` array to the `Thread` model to prevent users from voting more than once.
+* **Backend API:** Build `POST /api/forum/:id/vote`. The controller must check if `req.user.id` is already in the `upvotedBy` array. If yes, remove them (toggle off). If no, add them.
+* **Frontend:** Create a specific React function to handle the vote toggle, update the button UI to show an active state, and increment/decrement the counter dynamically.
+
+## 3. Save Threads to User Profile (Bookmarks)
+* **Current State:** The "🔖 Save" button does nothing. 
+* **Database Schema Update:** Update the `User` model to include a `savedThreads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }]` array.
+* **Backend API:** Build `POST /api/users/save-thread/:id`.
+* **Frontend UI:** Build a new route and component (`/profile/saved`) that fetches only the populated threads living inside the user's `savedThreads` array. 
+
+## 4. Real-Time Interactions (WebSockets)
+* **Goal:** Make replies appear instantly for all users viewing a thread without needing to refresh the page.
+* **Implementation:** Integrate `socket.io` on the Express server and the React client to emit a `new_reply` event whenever a POST request succeeds. 
+
+## 5. Moderation Dashboard
+* **Goal:** Allow teachers or admins to delete inappropriate forum posts.
+* **Implementation:** Add a `role` check to the backend delete endpoints. Build an admin-only view in the frontend to flag or remove threads.

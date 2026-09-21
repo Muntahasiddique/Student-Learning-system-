@@ -18,8 +18,16 @@ const createThread = async(req, res)=>{
 }
 const getAllThreads = async(req, res)=>{
       try {
-        const  getThreads = await threadModel.find().sort({createdAt : -1}).populate('author' , 'name');
-        return res.status(200).json({getThreads : getThreads});
+                const  page = parseInt(req.query.page) || 1;
+                const limit = parseInt(req.query.limit) || 10;
+
+                const skip = (page - 1) * limit;
+
+        const  getThreads = await threadModel.find().sort({createdAt : -1}).skip(skip).limit(limit).populate('author' , 'name');
+
+        const totalThreads = await threadModel.countDocuments();
+        
+        return res.status(200).json({getThreads : getThreads , currentpage : page, totalnopages : Math.ceil(totalThreads/limit), totalThreads });
     } catch (error) {
         console.error("Fetch Threads Error:", error);
     return res.status(500).json({ message: "Failed to fetch threads." });
