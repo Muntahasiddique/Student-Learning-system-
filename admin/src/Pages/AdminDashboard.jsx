@@ -1,11 +1,29 @@
-import Header from '../../../client/src/components/Header';
-import Footer from '../../../client/src/components/Footer';
 import '../styles/adminpanel.css';
+import AdminHeader from '../components/AdminHeader';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function AdminDashboard() {
+  const [stats, setStats] = useState({ totalUsers: 0, totalCourses: 0 });
+
+useEffect(() => {
+    async function fetchStats() {
+      try {
+        const token = localStorage.getItem('authtoken');
+        const response = await axios.get('http://localhost:3000/api/admin/stats', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setStats(response.data);
+      } catch (error) {
+        console.error("Failed to fetch stats:", error);
+      }
+    }
+    fetchStats();
+  }, []);
+
   return (
     <div className="admin-dashboard">
-      <Header />   
+      <AdminHeader/>
     
       {/* Main Content */}
       <main className="admin-main">
@@ -27,12 +45,12 @@ export default function AdminDashboard() {
         <div className="admin-stats-grid">
           <div className="admin-stat-card admin-stat-card--users">
             <div className="admin-stat-label">Total Users</div>
-            <div className="admin-stat-value">1,248</div>
+            <div className="admin-stat-value">{stats.totalUsers}</div>
             <div className="admin-stat-trend">↑ 12% this month</div>
           </div>
           <div className="admin-stat-card admin-stat-card--courses">
             <div className="admin-stat-label">Active Courses</div>
-            <div className="admin-stat-value">47</div>
+            <div className="admin-stat-value">{stats.totalCourses}</div>
             <div className="admin-stat-trend">↑ 3 new this week</div>
           </div>
           <div className="admin-stat-card admin-stat-card--approvals">
@@ -232,7 +250,6 @@ export default function AdminDashboard() {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 }

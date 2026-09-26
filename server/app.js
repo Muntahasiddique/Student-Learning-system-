@@ -17,6 +17,7 @@ const enrollmentRoutes = require('./routes/enrollment.routes');
 const gradeRoutes = require('./routes/report.routes');
 const degreeRoutes = require('./routes/degree.routes');
 const forumRoutes = require('./routes/forum.routes');
+const adminRoutes = require('./routes/adminpanel.routes')
 
 
 
@@ -26,6 +27,7 @@ app.use('/api' ,enrollmentRoutes);
 app.use('/api/grades', gradeRoutes);
 app.use('/api/degree' , degreeRoutes);
 app.use('/api/forum' , forumRoutes);
+app.use('/api/admin',adminRoutes);
 
 
 

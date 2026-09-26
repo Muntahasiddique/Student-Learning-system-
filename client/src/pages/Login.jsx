@@ -32,7 +32,7 @@ try {
     setSuccessMsg("Login Successfully");
 
   if (role.toLowerCase() === 'teacher' || role.toLowerCase() === 'admin') {
-    window.location.href = 'http://localhost:5174';
+    window.location.href = 'http://localhost:5174/login';
 } else {
     navigate('/dashboard'); 
 }

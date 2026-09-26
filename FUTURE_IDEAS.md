@@ -128,3 +128,8 @@ This document tracks features that are outside the scope of the core 6-week MERN
 ## 5. Moderation Dashboard
 * **Goal:** Allow teachers or admins to delete inappropriate forum posts.
 * **Implementation:** Add a `role` check to the backend delete endpoints. Build an admin-only view in the frontend to flag or remove threads.
+
+## Implement Single Sign-On (SSO): 
+Migrate the current JWT authentication system from localStorage to httpOnly secure cookies. This will tie the token to the localhost domain rather than isolating it by specific port numbers, enabling seamless navigation between the Student portal (5173) and Admin portal (5174) without requiring teachers to log in twice.
+
+Axios Interceptors: Once cookies are implemented, configure global Axios defaults (withCredentials: true) across both the client and admin React apps so the browser automatically attaches the secure cookie to all backend requests. This will remove the need to manually extract tokens and set Authorization headers inside every useEffect.
