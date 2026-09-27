@@ -5,22 +5,112 @@ import axios from 'axios';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ totalUsers: 0, totalCourses: 0 });
+  const [users, setUsers] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [editingCourseId, setEditingCourseId] = useState(null);
+  const [editForm, setEditForm] = useState({ title: '', category: '', price: 0 });
 
 useEffect(() => {
-    async function fetchStats() {
+    async function fetchDashboardData() {
       try {
         const token = localStorage.getItem('authtoken');
-        const response = await axios.get('http://localhost:3000/api/admin/stats', {
+        const config = {
           headers: { Authorization: `Bearer ${token}` }
-        });
-        setStats(response.data);
+        };
+
+        const statsResponse = await axios.get('http://localhost:3000/api/admin/stats', config);
+        setStats(statsResponse.data);
+
+        const usersResponse = await axios.get('http://localhost:3000/api/admin/users', config);
+        setUsers(usersResponse.data);
+
+        const coursesResponse = await axios.get('http://localhost:3000/api/admin/courses', config);
+        setCourses(coursesResponse.data);
       } catch (error) {
-        console.error("Failed to fetch stats:", error);
+        console.error("Failed to fetch dashboard data:", error);
       }
     }
-    fetchStats();
+    fetchDashboardData();
   }, []);
 
+  const handleDeleteCourse = async (courseId) => {
+    if (!window.confirm("Are you sure you want to delete this course? This action cannot be undone.")) return;
+    
+    try {
+      const token = localStorage.getItem('authtoken');
+      await axios.delete(`http://localhost:3000/api/admin/courses/${courseId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      // Remove the deleted course from the React state instantly
+      setCourses(courses.filter(course => course._id !== courseId));
+      // Optionally decrement the stats counter
+      setStats(prev => ({ ...prev, totalCourses: prev.totalCourses - 1 }));
+    } catch (error) {
+      console.error("Failed to delete course:", error);
+      alert("Error deleting course.");
+    }
+  };
+
+// Triggers edit mode and pre-fills the input boxes
+  const startEditing = (course) => {
+    setEditingCourseId(course._id);
+    setEditForm({ title: course.title, category: course.category, price: course.price });
+  };
+
+  // Submits the full object to the backend and closes edit mode
+  const submitEdit = async (courseId) => {
+    try {
+      const token = localStorage.getItem('authtoken');
+      const response = await axios.put(`http://localhost:3000/api/admin/courses/${courseId}`, 
+        editForm,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      // Update the UI array with the new database record
+      setCourses(courses.map(c => c._id === courseId ? response.data : c));
+      setEditingCourseId(null); // Close the editor
+    } catch (error) {
+      console.error("Failed to update course:", error);
+      alert("Error updating course.");
+    }
+  };
+
+// Suspend (Delete) User
+  const handleSuspendUser = async (userId) => {
+    if (!window.confirm("Are you sure you want to suspend this user? They will be removed from the system.")) return;
+    
+    try {
+      const token = localStorage.getItem('authtoken');
+      await axios.delete(`http://localhost:3000/api/admin/users/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setUsers(users.filter(user => user._id !== userId));
+      setStats(prev => ({ ...prev, totalUsers: prev.totalUsers - 1 }));
+    } catch (error) {
+      console.error("Failed to suspend user:", error);
+      alert("Error suspending user.");
+    }
+  };
+
+  // Quick Edit User Role
+  const handleEditUserRole = async (user) => {
+    const newRole = window.prompt(`Enter new role for ${user.name} (Current: ${user.role}):\nOptions: student, teacher, admin`, user.role);
+    
+    if (!newRole || newRole === user.role) return;
+
+    try {
+      const token = localStorage.getItem('authtoken');
+      const response = await axios.put(`http://localhost:3000/api/admin/users/${user._id}`, 
+        { role: newRole },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      setUsers(users.map(u => u._id === user._id ? response.data : u));
+    } catch (error) {
+      console.error("Failed to update user:", error);
+      alert("Error updating user.");
+    }
+  };
   return (
     <div className="admin-dashboard">
       <AdminHeader/>
@@ -93,7 +183,7 @@ useEffect(() => {
             </form>
 
             {/* User Table */}
-            <div className="admin-table-container">
+        <div className="admin-table-container">
               <table className="admin-table">
                 <thead>
                   <tr>
@@ -104,69 +194,164 @@ useEffect(() => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="admin-table-row">
-                    <td className="admin-table-cell">
-                      <div className="admin-user-cell">
-                        <div className="admin-user-avatar">AM</div>
-                        <div className="admin-user-info">
-                          <div className="admin-user-name">Ayesha Malik</div>
-                          <div className="admin-user-username">@ayesha_m</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="admin-table-cell">ayesha@example.com</td>
-                    <td className="admin-table-cell">
-                      <span className="admin-role-badge admin-role-badge--student">Student</span>
-                    </td>
-                    <td className="admin-table-cell">
-                      <button className="admin-action-button admin-action-button--edit" type="button">Edit</button>
-                      <button className="admin-action-button admin-action-button--suspend" type="button">Suspend</button>
-                    </td>
-                  </tr>
+                  {users.length > 0 ? (
+                    users.map((user) => (
+                      <tr key={user._id} className="admin-table-row">
+                        <td className="admin-table-cell">
+                          <div className="admin-user-cell">
+                            <div className="admin-user-avatar">
+                              {user.name.substring(0, 2).toUpperCase()}
+                            </div>
+                            <div className="admin-user-info">
+                              <div className="admin-user-name">{user.name}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="admin-table-cell">{user.email}</td>
+                        <td className="admin-table-cell">
+                          <span className={`admin-role-badge admin-role-badge--${user.role?.toLowerCase() || 'student'}`}>
+                            {user.role}
+                          </span>
+                        </td>
+                       <td className="admin-table-cell">
+  <button 
+    className="admin-action-button admin-action-button--edit" 
+    type="button"
+    onClick={() => handleEditUserRole(user)}
+  >
+    Edit Role
+  </button>
+  <button 
+    className="admin-action-button admin-action-button--suspend" 
+    type="button"
+    onClick={() => handleSuspendUser(user._id)}
+  >
+    Suspend
+  </button>
+</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4" style={{textAlign: 'center', padding: '2rem', color: '#94a3b8'}}>
+                        Loading users...
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        {/* Course Management */}
+      {/* Course Management */}
         <section className="admin-section">
           <div className="admin-section-header">
             <h2 className="admin-section-title">
               <span className="admin-section-icon admin-section-icon--courses">📚</span>
-              Course Control
+              Course Management
             </h2>
           </div>
           <div className="admin-section-content">
-            <div className="admin-course-grid">
-              <div className="admin-course-form">
-                <h3 className="admin-subsection-title">Create New Course</h3>
-                <input type="text" placeholder="Course Title" className="admin-input" />
-                <select className="admin-select" defaultValue="Select Instructor" aria-label="Select Instructor">
-                  <option>Select Instructor</option>
-                  <option>Prof. Ahmed Raza</option>
-                  <option>Dr. Fatima Khan</option>
-                </select>
-                <textarea placeholder="Course Description" rows="4" className="admin-textarea"></textarea>
-                <button type="button" className="admin-submit-button">
-                  Create Course
-                </button>
-              </div>
-              <div className="admin-course-list">
-                <h3 className="admin-subsection-title">Existing Courses</h3>
-                <div className="admin-course-list-container">
-                  <div className="admin-course-item">
-                    <div>
-                      <div className="admin-course-name">OOP Fundamentals</div>
-                      <div className="admin-course-instructor">Prof. Ahmed Raza</div>
-                    </div>
-                    <div className="admin-course-actions">
-                      <button className="admin-action-button admin-action-button--edit" type="button">Edit</button>
-                      <button className="admin-action-button admin-action-button--delete" type="button">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="admin-table-container">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th className="admin-table-header">Course Title</th>
+                    <th className="admin-table-header">Category</th>
+                    <th className="admin-table-header">Price</th>
+                    <th className="admin-table-header">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {courses.length > 0 ? (
+                    courses.map((course) => (
+                      <tr key={course._id} className="admin-table-row">
+                        {editingCourseId === course._id ? (
+                          /* EDIT MODE ROW */
+                          <>
+                            <td className="admin-table-cell">
+                              <input 
+                                type="text" 
+                                value={editForm.title} 
+                                onChange={e => setEditForm({...editForm, title: e.target.value})} 
+                                style={{width: '100%', padding: '4px', borderRadius: '4px', border: '1px solid #ccc'}} 
+                              />
+                            </td>
+                            <td className="admin-table-cell">
+                              <input 
+                                type="text" 
+                                value={editForm.category} 
+                                onChange={e => setEditForm({...editForm, category: e.target.value})} 
+                                style={{width: '100%', padding: '4px', borderRadius: '4px', border: '1px solid #ccc'}} 
+                              />
+                            </td>
+                            <td className="admin-table-cell">
+                              <input 
+                                type="number" 
+                                value={editForm.price} 
+                                onChange={e => setEditForm({...editForm, price: Number(e.target.value)})} 
+                                style={{width: '80px', padding: '4px', borderRadius: '4px', border: '1px solid #ccc'}} 
+                              />
+                            </td>
+                            <td className="admin-table-cell" style={{ display: 'flex', gap: '8px' }}>
+                              <button 
+                                onClick={() => submitEdit(course._id)} 
+                                className="admin-action-button admin-action-button--edit"
+                                style={{ backgroundColor: '#10b981', color: 'white' }}
+                              >
+                                Save
+                              </button>
+                              <button 
+                                onClick={() => setEditingCourseId(null)} 
+                                className="admin-action-button admin-action-button--delete"
+                                style={{ backgroundColor: '#64748b', color: 'white' }}
+                              >
+                                Cancel
+                              </button>
+                            </td>
+                          </>
+                        ) : (
+                          /* NORMAL VIEW ROW */
+                          <>
+                            <td className="admin-table-cell" style={{ fontWeight: '500' }}>
+                              {course.title}
+                            </td>
+                            <td className="admin-table-cell">
+                              <span className="admin-category-badge">{course.category}</span>
+                            </td>
+                            <td className="admin-table-cell">
+                              {course.price === 0 ? 'Free' : `$${course.price}`}
+                            </td>
+                            <td className="admin-table-cell">
+                              <button 
+                                className="admin-action-button admin-action-button--edit" 
+                                type="button"
+                                onClick={() => startEditing(course)}
+                              >
+                                Edit
+                              </button>
+                              <button 
+                                className="admin-action-button admin-action-button--delete" 
+                                type="button"
+                                onClick={() => handleDeleteCourse(course._id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </>
+                        )}
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4" style={{textAlign: 'center', padding: '2rem', color: '#94a3b8'}}>
+                        Loading courses...
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </section>

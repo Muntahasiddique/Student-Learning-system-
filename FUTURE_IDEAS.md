@@ -133,3 +133,9 @@ This document tracks features that are outside the scope of the core 6-week MERN
 Migrate the current JWT authentication system from localStorage to httpOnly secure cookies. This will tie the token to the localhost domain rather than isolating it by specific port numbers, enabling seamless navigation between the Student portal (5173) and Admin portal (5174) without requiring teachers to log in twice.
 
 Axios Interceptors: Once cookies are implemented, configure global Axios defaults (withCredentials: true) across both the client and admin React apps so the browser automatically attaches the secure cookie to all backend requests. This will remove the need to manually extract tokens and set Authorization headers inside every useEffect.
+
+React Modal Forms: Refactor the current inline table inputs and window.prompt dialogs into dedicated, reusable React modal forms for editing user details and course attributes.
+
+Admin Pagination & Search Filtering: Implement backend query parameter parsing (skip/limit) and frontend search states for the admin tables to prevent performance degradation as user and course records scale.
+
+Toast Notifications: Replace browser alerts (window.confirm, alert) with a clean notification library (such as react-hot-toast) for smooth visual confirmation on CRUD actions.
