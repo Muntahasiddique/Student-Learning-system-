@@ -106,7 +106,7 @@ export default function Home() {
                   <img src={labIcons[currentIndex]} alt="Peer Learning" className="home-feature-card-icon" />
                   <h3 className="home-feature-card-title">Peer Learning</h3>
                   <p className="home-feature-card-description">Join forums, collaborate on projects, and review assignments with your peers.</p>
-                  <Link to="#" className="home-feature-card-button">Join Peers</Link>
+                  <Link to="/forum" className="home-feature-card-button">Join Peers</Link>
                 </div>
               </div>
             </div>
