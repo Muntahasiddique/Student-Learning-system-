@@ -174,3 +174,12 @@ Built (Frontend): Converted AdminDashboard.jsx to consume live API data from por
 Confused me: Port mismatches (localhost:5000 vs localhost:3000) causing silent API failures, and initially leaving admin table actions as static HTML placeholders without backing controllers.
 
 Would forget in 2 weeks: Always ensure frontend Axios base URLs match the active backend port precisely, and implement server-side role protection guards before relying on UI-level button hiding to protect privileged accounts.
+
+## Interactive Code Lab (N3 & N4 Complete)
+Built (Backend): Created snippet.model.js to define the database schema. Built saveSnippet and getUserSnippets controllers in snippet.controller.js to handle authenticated payload storage. Mounted secured routes to /api/snippets.
+
+Built (Frontend): Bypassed Judge0's credit card wall by engineering a client-side Web Worker execution engine for JavaScript. Overrode console.log to safely intercept and display output. Wired the frontend Save button to the backend API with strict error boundary checks.
+
+Confused me: Assuming native fetch() throws errors on bad HTTP statuses, and trying to test authenticated endpoints with a stale, expired JWT from an overnight session.
+
+Would forget in 2 weeks: fetch() does not automatically throw errors on 400 or 500 status codes like Axios does. You must manually check response.ok and throw an error to trigger the catch block.

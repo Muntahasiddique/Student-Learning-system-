@@ -18,8 +18,7 @@ const gradeRoutes = require('./routes/report.routes');
 const degreeRoutes = require('./routes/degree.routes');
 const forumRoutes = require('./routes/forum.routes');
 const adminRoutes = require('./routes/adminpanel.routes')
-
-
+const snippetRoutes = require('./routes/snippet.routes');
 
 app.use('/api/auth' , authRoutes);
 app.use('/api' , courseRoutes);
@@ -28,6 +27,7 @@ app.use('/api/grades', gradeRoutes);
 app.use('/api/degree' , degreeRoutes);
 app.use('/api/forum' , forumRoutes);
 app.use('/api/admin',adminRoutes);
+app.use('/api/snippets', snippetRoutes);
 
 
 

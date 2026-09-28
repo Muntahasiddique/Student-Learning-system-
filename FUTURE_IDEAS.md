@@ -139,3 +139,9 @@ React Modal Forms: Refactor the current inline table inputs and window.prompt di
 Admin Pagination & Search Filtering: Implement backend query parameter parsing (skip/limit) and frontend search states for the admin tables to prevent performance degradation as user and course records scale.
 
 Toast Notifications: Replace browser alerts (window.confirm, alert) with a clean notification library (such as react-hot-toast) for smooth visual confirmation on CRUD actions.
+
+True Multi-Language Execution (Piston API): The current Web Worker engine is a client-side compromise. It only runs JavaScript. To actually compile and execute Python, Java, and C++ safely without hitting a paywall, you must integrate the free Piston REST API on the backend to sandbox the code in remote containers.
+
+Snippet Retrieval UI: We built the backend controller to fetch saved snippets (getUserSnippets), but there is absolutely no UI for it. You need to build a sidebar or a modal where students can view their saved files, click them, and inject the code back into the editor state.
+
+Monaco Editor Upgrade: We reverted to a plain <textarea> to simplify the execution logic. A professional learning platform requires integrating @monaco-editor/react to provide real syntax highlighting, line numbers, and IntelliSense.
