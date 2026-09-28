@@ -183,3 +183,25 @@ Built (Frontend): Bypassed Judge0's credit card wall by engineering a client-sid
 Confused me: Assuming native fetch() throws errors on bad HTTP statuses, and trying to test authenticated endpoints with a stale, expired JWT from an overnight session.
 
 Would forget in 2 weeks: fetch() does not automatically throw errors on 400 or 500 status codes like Axios does. You must manually check response.ok and throw an error to trigger the catch block.
+
+Resolved global specificity conflicts where hardcoded dark-mode classes in isolated component stylesheets were overriding the global .light-mode state.
+
+Courses & My Courses: Forced component wrappers (.courses-page, .mycourses-page) and feature cards to #ffffff and #f8fafc. Applied #1d4ed8 contrast backgrounds to preview buttons.
+
+Forum System: Overwrote conflicting gradient backgrounds. Fixed a critical invalid CSS syntax error where hex variables were illegally passed into rgba() functions, restoring thread status tag rendering.
+
+Interactive Code Lab: Synced .code-editor-body and .editor-panel to light mode. Enforced high-contrast text (#0f172a) inside the code textarea and output console.
+
+Authentication Pages (Login/Signup): Removed dark-mode locks on .login-card and .signup-card, ensuring inputs, placeholder text, and password toggle icons render cleanly in light mode.
+
+Form Select Inputs: Applied unified .light-mode contrast fixes for native <select> and <option> tags to prevent invisible text rendering.
+
+2. Navigation & Routing (React Router)
+Global Header: Injected the missing /dashboard route into both the desktop .header__nav and mobile menu, conditionally rendering it only when token is active.
+
+Dashboard: Attached useNavigate hook to the "Grades" stat card, transforming it from a static UI element into an active route trigger for /grades.
+
+Admin Control: Replaced a dead HTML button in AdminHeader.jsx with a functional handleLogout execution that destroys authtoken and userRole in localStorage before pushing the user back to /login.
+
+3. Component Logic Updates
+Code Editor: Updated the LANGUAGES.map logic in CodeEditor.jsx to dynamically attach the disabled={!isRunnable} attribute, preventing users from selecting backend languages that cannot currently execute in the browser worker.

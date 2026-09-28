@@ -297,3 +297,39 @@
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
 }
+/* LIGHT MODE OVERRIDES FOR LOGIN.JSX */
+body.light-mode .login-page,
+body.light-mode .login-main,
+body.light-mode .login-wrapper {
+  background-color: #ffffff !important;
+}
+
+/* Login Card Wrapper */
+body.light-mode .login-card {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Titles, Labels, Hints, and Links */
+body.light-mode .login-title,
+body.light-mode .login-label,
+body.light-mode .login-hint,
+body.light-mode .login-signup-text {
+  color: #0f172a !important;
+}
+
+/* Input Fields */
+body.light-mode .login-input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+body.light-mode .login-input::placeholder {
+  color: #94a3b8 !important;
+}
+
+body.light-mode .login-input-icon {
+  color: #1d4ed8 !important;
+}

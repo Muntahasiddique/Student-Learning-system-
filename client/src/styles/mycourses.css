@@ -49,3 +49,31 @@
   color: rgba(255,255,255,0.5);
   grid-column: 1 / -1;
 }
+/* LIGHT MODE OVERRIDES FOR MYCOURSES.JSX */
+
+/* 1. Main Backgrounds */
+body.light-mode .mycourses-page,
+body.light-mode .mycourses-main,
+body.light-mode .mycourses-wrapper {
+  background-color: #ffffff;
+}
+
+/* 2. Page Headings and Empty State Text */
+body.light-mode .mycourses-title,
+body.light-mode .mycourses-subtitle,
+body.light-mode .mycourses-empty {
+  color: #0f172a;
+}
+
+/* 3. Enrolled Course Cards */
+body.light-mode .mycourses-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 4. Text inside the Course Cards */
+body.light-mode .mycourses-card h3,
+body.light-mode .mycourses-card p {
+  color: #0f172a;
+}

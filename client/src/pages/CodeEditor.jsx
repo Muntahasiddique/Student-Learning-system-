@@ -230,17 +230,20 @@ async function handleSave() {
         <div className="language-selector-container">
           <label className="language-selector-label">Programming Language</label>
           <select
-            className="language-selector-dropdown"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            aria-label="Programming Language"
-          >
-            {LANGUAGES.map((lang) => (
-              <option key={lang} value={lang}>
-                {RUNNABLE.includes(lang) ? lang : `${lang} (run not available)`}
-              </option>
-            ))}
-          </select>
+  className="language-selector-dropdown"
+  value={language}
+  onChange={(e) => setLanguage(e.target.value)}
+  aria-label="Programming Language"
+>
+  {LANGUAGES.map((lang) => {
+    const isRunnable = RUNNABLE.includes(lang);
+    return (
+      <option key={lang} value={lang} disabled={!isRunnable}>
+        {isRunnable ? lang : `${lang} (run not available)`}
+      </option>
+    );
+  })}
+</select>
         </div>
       </main>
       <Footer />

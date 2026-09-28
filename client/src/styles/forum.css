@@ -650,3 +650,39 @@ body.forum-page {
         width: 100%;
     }
 }
+/* ABSOLUTE FORCE OVERRIDE FOR FORUM LIGHT MODE */
+body.light-mode .forum-page {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+body.light-mode .forum-main {
+  background-color: #ffffff !important;
+}
+
+body.light-mode .forum-title,
+body.light-mode .forum-subtitle,
+body.light-mode .forum-form-label,
+body.light-mode .forum-thread-title,
+body.light-mode .forum-thread-content,
+body.light-mode .forum-thread-meta,
+body.light-mode .forum-thread-meta span {
+  color: #0f172a !important;
+}
+
+body.light-mode .forum-filters,
+body.light-mode .forum-new-thread,
+body.light-mode .forum-thread,
+body.light-mode .forum-pagination-container {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body.light-mode .forum-search-input,
+body.light-mode .forum-filter-select,
+body.light-mode .forum-form-input,
+body.light-mode .forum-form-textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}

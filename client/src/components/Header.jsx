@@ -1,15 +1,38 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/header.css';
+
 export default function Header() {
-  // Temporary placeholder function so React doesn't crash
-  const toggleDarkMode = () => {
-    console.log("Dark mode toggled! You will need to build React state for this later.");
-  };
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); 
+  
   const token = localStorage.getItem('authtoken');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      setIsDarkMode(false);
+      document.body.classList.add('light-mode');
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    if (isDarkMode) {
+      document.body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.body.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
+
+  // Helper to close the menu when a user clicks a link
+  const closeMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <header className="header">
-      {/* Aurora Background */}
       <div className="header__aurora">
         <div className="header__aurora--left"></div>
         <div className="header__aurora--right"></div>
@@ -17,7 +40,6 @@ export default function Header() {
       </div>
 
       <div className="header__container">
-        {/* Logo */}
         <Link to="/" className="header__logo">
           <div className="header__logo-icon">
             <i className="fas fa-graduation-cap"></i>
@@ -25,13 +47,16 @@ export default function Header() {
           <span className="header__logo-text">SLS</span>
         </Link>
 
-        {/* Mobile Menu Button (visible on small screens) */}
-        <button className="header__mobile-menu" aria-label="Toggle menu">
+        {/* 1. DYNAMIC CLASS ON BUTTON: This triggers your CSS to rotate the icon into an 'X' */}
+        <button 
+          className={`header__mobile-menu ${isMobileMenuOpen ? 'active' : ''}`} 
+          aria-label="Toggle menu"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
           <span className="header__mobile-menu-icon"></span>
         </button>
 
-        {/* Desktop Navigation (hidden on mobile) */}
-       <nav className="header__nav">
+        <nav className="header__nav">
           <Link to="/" className="header__nav-link">
             <i className="fas fa-home"></i> <span className="nav-text">Home</span>
             <span className="header__nav-underline"></span>
@@ -46,12 +71,18 @@ export default function Header() {
           </Link>
           
           {/* PROFESSIONAL CONDITIONAL RENDERING */}
-          {token && (
-            <Link to="/my-courses" className="header__nav-link">
-              <i className="fas fa-laptop-code"></i> <span className="nav-text">My Courses</span>
-              <span className="header__nav-underline"></span>
-            </Link>
-          )}
+{token && (
+  <>
+    <Link to="/dashboard" className="header__nav-link">
+      <i className="fas fa-tachometer-alt"></i> <span className="nav-text">Dashboard</span>
+      <span className="header__nav-underline"></span>
+    </Link>
+    <Link to="/my-courses" className="header__nav-link">
+      <i className="fas fa-laptop-code"></i> <span className="nav-text">My Courses</span>
+      <span className="header__nav-underline"></span>
+    </Link>
+  </>
+)}
 
           <Link to="/forum" className="header__nav-link">
             <i className="fas fa-comments"></i> <span className="nav-text">Forum</span>
@@ -63,21 +94,20 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* Desktop Actions (hidden on mobile) */}
-       <div className="header__actions">
-          {/* Theme Toggle */}
+        <div className="header__actions">
           <div className="header__theme-toggle" onClick={toggleDarkMode}>
-            <div className="header__theme-thumb"><i className="fas fa-moon" id="moon"></i></div>
+            <div className="header__theme-thumb">
+              <i className={`fas ${isDarkMode ? 'fa-moon' : 'fa-sun'}`} id="moon"></i>
+            </div>
           </div>
 
-          {/* CONDITIONAL LOGIN / LOGOUT */}
           {token ? (
             <button 
               className="header__login" 
               style={{ background: 'none', border: 'none', cursor: 'pointer' }}
               onClick={() => {
                 localStorage.removeItem('authtoken');
-                window.location.href = '/login'; // Force redirect and clear state
+                window.location.href = '/login'; 
               }}
             >
               <i className="fas fa-sign-out-alt"></i> <span className="login-text">Log Out</span>
@@ -97,33 +127,59 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu (hidden by default) */}
-      <div className="header__mobile-nav">
-        <Link to="/" className="header__mobile-nav-link">
-          <i className="fas fa-home"></i> Home
-        </Link>
-        <Link to="/degrees" className="header__mobile-nav-link">
-          <i className="fas fa-university"></i> Degrees
-        </Link>
-        <Link to="/courses" className="header__mobile-nav-link">
+      {/* 2. DYNAMIC CLASS ON MENU: This triggers your CSS to slide the menu down */}
+     {/* Mobile Navigation Menu */}
+<div className={`header__mobile-nav ${isMobileMenuOpen ? 'active' : ''}`}>
+  <Link to="/" className="header__mobile-nav-link" onClick={closeMenu}>
+    <i className="fas fa-home"></i> Home
+  </Link>
+  
+  {token && (
+    <Link to="/dashboard" className="header__mobile-nav-link" onClick={closeMenu}>
+      <i className="fas fa-tachometer-alt"></i> Dashboard
+    </Link>
+  )}
+
+  <Link to="/degrees" className="header__mobile-nav-link" onClick={closeMenu}>
+    <i className="fas fa-university"></i> Degrees
+  </Link>
+  {/* ... rest of your mobile links */}
+        <Link to="/courses" className="header__mobile-nav-link" onClick={closeMenu}>
           <i className="fas fa-book-open"></i> Courses
         </Link>
-        <Link to="/forum" className="header__mobile-nav-link">
+        <Link to="/forum" className="header__mobile-nav-link" onClick={closeMenu}>
           <i className="fas fa-comments"></i> Forum
         </Link>
-        <Link to="/playground" className="header__mobile-nav-link">
+        <Link to="/editor" className="header__mobile-nav-link" onClick={closeMenu}>
           <i className="fas fa-code"></i> Playground
         </Link>
         <div className="header__mobile-actions">
-          <div className="header__mobile-theme-toggle" onClick={toggleDarkMode}>
-            <i className="fas fa-moon"></i> Toggle Theme
+          <div 
+            className="header__mobile-theme-toggle" 
+            onClick={() => {
+              toggleDarkMode();
+              closeMenu();
+            }}
+          >
+            <i className={`fas ${isDarkMode ? 'fa-moon' : 'fa-sun'}`}></i> Toggle Theme
           </div>
-          <Link to="/login" className="header__mobile-login">
-            <i className="fas fa-sign-in-alt"></i> Log In
-          </Link>
-          <Link to="/signup" className="header__mobile-signup">
-            <i className="fas fa-user-plus"></i> Sign Up Free
-          </Link>
+          {token ? (
+            <div className="header__mobile-login" onClick={() => {
+                localStorage.removeItem('authtoken');
+                window.location.href = '/login';
+            }} style={{ cursor: 'pointer' }}>
+              <i className="fas fa-sign-out-alt"></i> Log Out
+            </div>
+          ) : (
+            <>
+              <Link to="/login" className="header__mobile-login" onClick={closeMenu}>
+                <i className="fas fa-sign-in-alt"></i> Log In
+              </Link>
+              <Link to="/signup" className="header__mobile-signup" onClick={closeMenu}>
+                <i className="fas fa-user-plus"></i> Sign Up Free
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

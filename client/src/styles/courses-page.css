@@ -46,6 +46,7 @@
     --text-secondary: var(--text-secondary-dark);
     --border-color: var(--border-dark);
   }
+  
 * {
     margin: 0;
     padding: 0;
@@ -702,4 +703,72 @@
   .courses-grid {
     grid-template-columns: 1fr;
   }
+}
+/* LIGHT MODE OVERRIDES FOR COURSES.JSX */
+
+/* 1. Main Backgrounds */
+body.light-mode .courses-page,
+body.light-mode .courses-main {
+  background-color: #ffffff;
+}
+
+/* 2. Text Colors (Headings, Subheadings, Labels) */
+body.light-mode .courses-subheading,
+body.light-mode .courses-filter-label,
+body.light-mode .course-card-title,
+body.light-mode .course-card-description,
+body.light-mode .course-card-meta {
+  color: #0f172a;
+}
+
+/* 3. Search Bar and Inputs (Fixes invisible text) */
+body.light-mode .courses-search-bar,
+body.light-mode .courses-search-input,
+body.light-mode .courses-filter-select {
+  background-color: #ffffff;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+body.light-mode .courses-search-input::placeholder {
+  color: #64748b;
+}
+
+/* 4. Cards (Filter cards and Course cards) */
+body.light-mode .courses-filter-card,
+body.light-mode .course-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 5. Icons */
+body.light-mode .courses-search-icon i,
+body.light-mode .filter-icon-wrapper i,
+body.light-mode .course-card-icon i {
+  color: #1d4ed8;
+}
+/* Fix the invisible Featured Courses and Filter headings */
+body.light-mode .courses-grid-heading,
+body.light-mode .courses-filters-heading {
+  color: #0f172a;
+}
+
+/* Fix the stubborn dark background inside the dropdown options */
+body.light-mode .courses-filter-select option {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+/* LIGHT MODE FIX FOR COURSE ACTION BUTTONS */
+body.light-mode .course-action-btn,
+body.light-mode .course-action-btn--view {
+  background-color: #1d4ed8 !important; /* Solid blue background */
+  color: #ffffff !important;           /* White text so it's readable */
+  border: none !important;
+}
+
+body.light-mode .course-action-btn:hover,
+body.light-mode .course-action-btn--view:hover {
+  background-color: #1e40af !important; /* Darker blue on hover */
+  color: #ffffff !important;
 }

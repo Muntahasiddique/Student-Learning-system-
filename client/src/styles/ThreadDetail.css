@@ -144,3 +144,40 @@
 .btn-submit-reply:hover {
   background-color: #2563eb;
 }
+/* LIGHT MODE OVERRIDES FOR THREAD DETAIL */
+body.light-mode .thread-detail-page,
+body.light-mode .thread-detail-main {
+  background-color: #ffffff !important;
+}
+
+/* Post, Reply, and Form Cards */
+body.light-mode .main-post-card,
+body.light-mode .reply-card,
+body.light-mode .reply-form-section {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Text and Headings */
+body.light-mode .main-post-title,
+body.light-mode .main-post-meta,
+body.light-mode .main-post-content p,
+body.light-mode .replies-heading,
+body.light-mode .reply-author,
+body.light-mode .reply-date,
+body.light-mode .reply-body p,
+body.light-mode .reply-form-section h3 {
+  color: #0f172a !important;
+}
+
+/* Textarea Input */
+body.light-mode .reply-textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+body.light-mode .reply-textarea::placeholder {
+  color: #94a3b8 !important;
+}

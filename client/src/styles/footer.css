@@ -37,6 +37,15 @@
   --footer-input-border: var(--footer-input-border-dark);
   --footer-divider: var(--footer-divider-dark);
 }
+/* 2. Light Mode Overrides (Triggered when body has .light-mode) */
+body.light-mode {
+  --footer-bg: #F8FAFC;
+  --footer-text: #1E293B;
+  --footer-subtitle: #64748B;
+  --footer-input-bg: #FFFFFF;
+  --footer-input-border: #E2E8F0;
+  --footer-divider: #E2E8F0;
+}
 /* Footer Base Styles */
 .footer {
   background-color: var(--footer-bg);

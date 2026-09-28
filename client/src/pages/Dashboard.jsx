@@ -69,10 +69,15 @@ if (loading) return <div className="dashboard-loading">Loading Profile...</div>;
                 <h3>Enrolled Courses</h3>
                 <p className="dashboard-stat-number">{enrollmentCount}</p>
               </div>
-              <div className="dashboard-stat-card">
-                <h3>Grades</h3>
-                <p className="dashboard-stat-number">--</p>
-              </div>
+              <div 
+      className="dashboard-stat-card" 
+      onClick={() => navigate('/grades')} 
+      style={{ cursor: 'pointer' }}
+      title="View your grades"
+    >
+      <h3>Grades</h3>
+      <p className="dashboard-stat-number">--</p>
+    </div>
               <div className="dashboard-stat-card">
                 <h3>Degree Progress</h3>
                 <p className="dashboard-stat-number">--</p>

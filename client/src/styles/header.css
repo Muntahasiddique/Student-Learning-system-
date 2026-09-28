@@ -75,7 +75,29 @@
   height: 100%;
   position: relative;
 }
+/* LIGHT MODE OVERRIDES FOR HEADER */
+body.light-mode .header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
 
+body.light-mode .header__nav-link,
+body.light-mode .header__logo-text,
+body.light-mode .login-text,
+body.light-mode .nav-text,
+body.light-mode .header__mobile-nav-link {
+  color: #0f172a;
+}
+
+body.light-mode .header__nav-link i,
+body.light-mode .header__logo-icon i,
+body.light-mode .header__login i {
+  color: #0f172a;
+}
+
+body.light-mode .header__nav-link:hover {
+  color: #1d4ed8;
+}
 /* Logo Styles */
 .header__logo {
   display: flex;
@@ -457,4 +479,33 @@
   .header__mobile-nav {
     display: none;
   }
+}
+
+/* LIGHT MODE OVERRIDES FOR MOBILE MENU */
+body.light-mode .header__mobile-nav {
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Force ALL mobile text to be dark so it is readable */
+body.light-mode .header__mobile-nav-link,
+body.light-mode .header__mobile-theme-toggle,
+body.light-mode .header__mobile-login,
+body.light-mode .header__mobile-signup {
+  color: #0f172a;
+}
+
+/* Give the mobile icons a nice blue accent in light mode */
+body.light-mode .header__mobile-nav-link i,
+body.light-mode .header__mobile-theme-toggle i,
+body.light-mode .header__mobile-login i {
+  color: #1d4ed8; 
+}
+
+/* Fix the hover states so they don't turn dark navy */
+body.light-mode .header__mobile-nav-link:hover,
+body.light-mode .header__mobile-theme-toggle:hover,
+body.light-mode .header__mobile-login:hover {
+  background-color: #f1f5f9;
+  color: #1d4ed8;
 }

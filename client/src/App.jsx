@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Import all your converted pages
+// 1. IMPORT YOUR BOUNCER HERE
+import ProtectedRoute from './components/ProtectedRoute'; 
+
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -14,26 +16,49 @@ import Dashboard from './pages/Dashboard';
 import MyCourses from './pages/MyCourses';
 import ThreadDetail from './pages/ThreadDetail';
 
-
 export default function App() {
   return (
     <Router>
       <Routes>
+        {/* PUBLIC ROUTES: Anyone on the internet can see these */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/degree" element={<Degree />} />
-        <Route path="/forum" element={<Forum />} />
-        <Route path="/editor" element={<CodeEditor />} />
-        <Route path="/grades" element={<GradeReport />} />
         <Route path="/courses/:id" element={<CourseDetail />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/my-courses" element={<MyCourses />} />
+        <Route path="/forum" element={<Forum />} />
         <Route path="/forum/:id" element={<ThreadDetail />} />
 
-
-       
+        {/* PRIVATE ROUTES: Only logged-in users with a token can enter */}
+        <Route path="/editor" element={
+          <ProtectedRoute>
+            <CodeEditor />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/my-courses" element={
+          <ProtectedRoute>
+            <MyCourses />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/grades" element={
+          <ProtectedRoute>
+            <GradeReport />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/degree" element={
+          <ProtectedRoute>
+            <Degree />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );

@@ -313,3 +313,40 @@
     0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
   }
+  /* LIGHT MODE OVERRIDES FOR SIGNUP.JSX */
+body.light-mode .signup-page,
+body.light-mode .signup-main,
+body.light-mode .signup-wrapper {
+  background-color: #ffffff !important;
+}
+
+/* Signup Card Wrapper */
+body.light-mode .signup-card {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Titles, Labels, Hints, and Links */
+body.light-mode .signup-title,
+body.light-mode .signup-label,
+body.light-mode .signup-hint,
+body.light-mode .signup-login-text {
+  color: #0f172a !important;
+}
+
+/* Input Fields and Select Dropdown */
+body.light-mode .signup-input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+body.light-mode .signup-input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Password Eye Icon */
+body.light-mode .signup-eye-icon {
+  color: #1d4ed8 !important;
+}

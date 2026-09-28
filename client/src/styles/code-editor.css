@@ -313,14 +313,12 @@
   }
   
   .language-selector-dropdown {
-    background: var(--panel-bg-gradient);
-    border: 1px solid var(--border-primary);
-    color: var(--text-primary);
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    width: 100%;
-    transition: all 0.3s ease;
+    background-color: var(--bg, #f8fafc);
+  color: var(--text-primary, #0f172a);
+  border: 1px solid #cbd5e1;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
   }
   
   .language-selector-dropdown:focus {
@@ -364,3 +362,79 @@
       width: 16rem;
     }
   }
+  /* ACCURATE LIGHT MODE OVERRIDES FOR CODE EDITOR */
+body.light-mode .code-editor-body,
+body.light-mode .code-editor-main {
+  background-color: #ffffff !important;
+}
+
+/* Panels and Containers */
+body.light-mode .editor-panel,
+body.light-mode .output-console,
+body.light-mode .language-selector-container {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  color: #0f172a !important;
+}
+
+/* Textarea and Inputs */
+body.light-mode .code-textarea,
+body.light-mode .action-buttons input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+body.light-mode .code-textarea::placeholder,
+body.light-mode .action-buttons input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Headings and Labels */
+body.light-mode .header-title,
+body.light-mode .header-subtitle,
+body.light-mode .editor-label,
+body.light-mode .console-label,
+body.light-mode .language-selector-label {
+  color: #0f172a !important;
+}
+
+body.light-mode .gradient-text {
+  background: none !important;
+  color: #1d4ed8 !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+/* Light mode dropdown options styling */
+body.light-mode .language-selector-dropdown {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+body.light-mode .language-selector-dropdown option {
+  background-color: #ffffff;
+  color: #0f172a;
+  padding: 8px;
+}
+
+body.light-mode .language-selector-dropdown option:disabled {
+  color: #94a3b8; /* Clearer grey for disabled options */
+}
+
+/* Dark mode dropdown options styling */
+body:not(.light-mode) .language-selector-dropdown {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+body:not(.light-mode) .language-selector-dropdown option {
+  background-color: #0f172a;
+  color: #f8fafc;
+  padding: 8px;
+}
+
+body:not(.light-mode) .language-selector-dropdown option:disabled {
+  color: #64748b; /* Clearer grey for disabled options in dark mode */
+}

@@ -99,3 +99,49 @@
   opacity: 0.8;
   font-size: 0.95rem;
 }
+/* LIGHT MODE OVERRIDES FOR DASHBOARD.JSX */
+body.light-mode .dashboard-page,
+body.light-mode .dashboard-main,
+body.light-mode .dashboard-wrapper {
+  background-color: #ffffff !important;
+}
+
+/* Main Dashboard Card Wrapper */
+body.light-mode .dashboard-card {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Headings and Text */
+body.light-mode .dashboard-title,
+body.light-mode .dashboard-subtitle,
+body.light-mode .dashboard-recent-courses h2,
+body.light-mode .dashboard-recent-courses p,
+body.light-mode .dashboard-course-title,
+body.light-mode .dashboard-course-desc,
+body.light-mode .dashboard-stat-card h3 {
+  color: #0f172a !important;
+}
+
+/* Stat Cards */
+body.light-mode .dashboard-stat-card {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .dashboard-stat-number {
+  color: #1d4ed8 !important;
+}
+
+/* Recent Course Cards */
+body.light-mode .dashboard-course-card {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .dashboard-divider {
+  border-color: #cbd5e1 !important;
+}
