@@ -15,6 +15,8 @@ import CourseDetail from './pages/CourseDetail';
 import Dashboard from './pages/Dashboard';
 import MyCourses from './pages/MyCourses';
 import ThreadDetail from './pages/ThreadDetail';
+import AITutor from './pages/AITutor';
+
 
 export default function App() {
   return (
@@ -28,6 +30,12 @@ export default function App() {
         <Route path="/courses/:id" element={<CourseDetail />} />
         <Route path="/forum" element={<Forum />} />
         <Route path="/forum/:id" element={<ThreadDetail />} />
+        {/* PRIVATE ROUTES: Only logged-in users with a token can enter */}
+<Route path="/ai-tutor" element={
+  <ProtectedRoute>
+    <AITutor />
+  </ProtectedRoute>
+} />
 
         {/* PRIVATE ROUTES: Only logged-in users with a token can enter */}
         <Route path="/editor" element={

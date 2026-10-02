@@ -96,7 +96,8 @@ export default function Home() {
                   <img src={labIcons[currentIndex]} alt="AI Assistance" className="home-feature-card-icon" />
                   <h3 className="home-feature-card-title">AI Assistance</h3>
                   <p className="home-feature-card-description">Get instant help from built-in AI tutors and chat-based learning bots, available anytime.</p>
-                  <Link to="#" className="home-feature-card-button">Meet the AI</Link>
+<Link to="/ai-tutor" className="home-feature-card-button" >Meet the AI</Link>
+
                 </div>
               </div>
         
