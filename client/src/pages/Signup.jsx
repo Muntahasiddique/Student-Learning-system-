@@ -157,7 +157,7 @@ try {
 
             <p className="signup-login-text">
               Already have an account?
-              <Link href="/login" className="signup-login-link">Log In</Link>
+              <Link to="/login" className="signup-login-link">Log In</Link>
             </p>
           </div>
         </div>
