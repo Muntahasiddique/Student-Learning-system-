@@ -28,7 +28,7 @@
 }
 
 .light-mode {
-  --moon-bg: var(-- --gradient-secondary);
+  --moon-bg: var(--gradient-secondary);
   --header-bg: var(--header-bg-light);
   --mobile-nav-bg: var(--mobile-nav-bg-light);
   --header-border: var(--header-border-light);
