@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 import '../styles/login.css';
 import { useNavigate } from 'react-router-dom';
 export default function Login() {
@@ -99,7 +100,7 @@ try {
           
             <p className="login-signup-text">
               Don't have an account?
-              <a href="/signup" className="login-signup-link">Sign Up</a>
+              <Link to="/signup" className="login-signup-link">Sign Up</Link>
             </p>
           
             <p className="login-success-message" id="loginSuccess">✅ Welcome back! Redirecting to your dashboard...</p>
