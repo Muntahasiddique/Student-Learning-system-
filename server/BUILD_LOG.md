@@ -205,3 +205,19 @@ Admin Control: Replaced a dead HTML button in AdminHeader.jsx with a functional 
 
 3. Component Logic Updates
 Code Editor: Updated the LANGUAGES.map logic in CodeEditor.jsx to dynamically attach the disabled={!isRunnable} attribute, preventing users from selecting backend languages that cannot currently execute in the browser worker.
+
+## Release Build v1.5.0: AI Tutor Integration & API Security
+**Date:** October 3, 2026
+**Focus:** Third-Party AI Integration, MVC Refactoring, and Error Handling
+
+### 1. Backend Architecture (Node.js/Express)
+* **AI Integration:** Integrated `@google/generative-ai` SDK (Gemini 3.8 Flash model) to power a live student tutoring interface.
+* **MVC Refactoring:** Abstracted AI logic into `ai.controller.js` to maintain a clean architecture, keeping `ai.routes.js` strictly for routing and middleware execution.
+* **Security & Quota Protection:** Attached the `verifyToken` JWT middleware to the `/api/ai/ask` endpoint, preventing unauthenticated external requests from draining the API quota.
+* **Graceful Failure Handling:** Engineered a custom intercept for `503 Service Unavailable` errors to pass a user-friendly "high traffic" message to the frontend when Google's servers spike.
+
+### 2. Frontend Interface (React)
+* **AITutor Component:** Built `AITutor.jsx`, a chat-based UI with active scrolling, state-managed message history, and loading indicators.
+* **API Communication:** Configured Axios to securely transmit the user's `authtoken` in the request headers to satisfy the backend's JWT requirement.
+* **Scoped Styling:** Separated styling into `ai-tutor.css`, enforcing strict light/dark mode overrides to prevent the invisible text (white-on-white) input bug.
+* **Routing:** Wired the AI Tutor page into `App.jsx` under `<ProtectedRoute>` constraints and replaced the static homepage marketing button with an active `react-router-dom` `<Link>`.
