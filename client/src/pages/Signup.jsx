@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -156,7 +157,7 @@ try {
 
             <p className="signup-login-text">
               Already have an account?
-              <a href="/login" className="signup-login-link">Log In</a>
+              <Link href="/login" className="signup-login-link">Log In</Link>
             </p>
           </div>
         </div>
